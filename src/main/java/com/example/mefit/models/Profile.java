@@ -14,7 +14,9 @@ public class Profile {
     private int id;
     @OneToOne(cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true
-    @JoinColumn(name="profile_id", referencedColumnName = "id",nullable = true )
+    //@JoinColumn(name="profile_id", referencedColumnName = "user",nullable = true )
+    // JoinColumn and refrerencedColumnName should not be the same it should refer to the primary key of the other table
+    @JoinColumn(name="user_id", referencedColumnName = "user_id",nullable = true )
     private User user;
     //private Address address;
     @Column(length = 225)

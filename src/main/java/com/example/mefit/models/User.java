@@ -25,7 +25,8 @@ public class User {
     private String last_name;
     @OneToOne(cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true
-    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = true)
+    //@JoinColumn(name="user_id", referencedColumnName = "profile", nullable = true)
+    @JoinColumn(name="profile_id", referencedColumnName = "profile_id", nullable = true)
     private Profile profile;
 
     // private Boolean isContributor;
