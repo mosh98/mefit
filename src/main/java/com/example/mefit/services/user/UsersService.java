@@ -5,7 +5,7 @@ import com.example.mefit.services.CrudService;
 
 import java.util.Collection;
 
-public interface UserService extends CrudService<Users, Integer> {
+public interface UsersService extends CrudService<Users, Integer> {
 
     Collection<Users> findAllByFirstName(String firstName);
 }
