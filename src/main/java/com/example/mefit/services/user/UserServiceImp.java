@@ -1,6 +1,6 @@
 package com.example.mefit.services.user;
 
-import com.example.mefit.models.User;
+import com.example.mefit.models.Users;
 import com.example.mefit.repositories.UserRepository;
 
 import java.util.Collection;
@@ -14,22 +14,22 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
+    public Users findById(Integer id) {
         return userRepository.findById(id).get();
     }
 
     @Override
-    public Collection<User> findAll() {
+    public Collection<Users> findAll() {
         return null;
     }
 
     @Override
-    public User add(User entity) {
+    public Users add(Users entity) {
         return null;
     }
 
     @Override
-    public User update(User entity) {
+    public Users update(Users entity) {
         return null;
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Collection<User> findAllByFirstName(String firstName) {
+    public Collection<Users> findAllByFirstName(String firstName) {
         return null;
     }
 }

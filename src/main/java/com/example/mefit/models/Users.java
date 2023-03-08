@@ -2,26 +2,26 @@ package com.example.mefit.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-@Table(name = "user")
-@NoArgsConstructor
+
+
 @Getter
 @Setter
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
-    @Column(length = 100,nullable = false)
+    @Column(length = 100)
     private String e_mail;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String password;
 
-    @Column(length = 50,nullable = false)
+    @Column(length = 50)
     private String first_name;
-    @Column(length = 50,nullable = false)
+    @Column(length = 50)
     private String last_name;
     //@OneToOne(cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true

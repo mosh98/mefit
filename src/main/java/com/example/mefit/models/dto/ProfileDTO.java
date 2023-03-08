@@ -1,6 +1,5 @@
 package com.example.mefit.models.dto;
 
-import com.example.mefit.models.User;
 import lombok.Data;
 
 @Data
