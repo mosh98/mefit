@@ -16,10 +16,9 @@ public class Profile {
     // TODO we need to delete nullable=true
     @JoinColumn(name="profile_id", referencedColumnName = "id",nullable = true )
     private User user;
-
     //private Address address;
     @Column(length = 225)
-    private String pofile_img;
+    private String profile_img;
     @Column(length = 10, nullable = true)
     private int weight;
     @Column(length = 10, nullable = true)

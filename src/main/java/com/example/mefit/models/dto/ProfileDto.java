@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProfileDto {
+
     private int id;
     private int user;
     private String profile_img;
