@@ -2,6 +2,7 @@ package com.example.mefit.services.user;
 
 import com.example.mefit.models.User;
 import com.example.mefit.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.Collection;
 @Service
 public class UserServiceImp implements UserService{
 
+    @Autowired
     UserRepository userRepository;
 
     @Override
