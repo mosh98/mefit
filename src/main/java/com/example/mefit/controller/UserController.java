@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<UserDto> getAllUsers(){
-        //userService.findAll().forEach(System.out::println);
+
         return userMapper.userToUserDto(userService.findAll());
     }
 
@@ -35,8 +35,6 @@ public class UserController {
     public UserDto insertUser(@RequestBody UserDto userDto){
         User user = userService.add(userMapper.userDtoToUser(userDto));
 
-        UserDto returnNewUserDto = userMapper.userToUserDto(user);
-
-        return returnNewUserDto;
+        return userMapper.userToUserDto(user);
     }
 }
