@@ -28,8 +28,16 @@ public class UserController {
         return userMapper.userToUserDto(userService.findAll());
     }
 
-    //insert a new user
-    //make a post method to insert a new user
+    // Make a get method to get a user by id
+    @GetMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public UserDto getUserById(@PathVariable Integer id){
+        User user = userService.findById(id);
+
+        return userMapper.userToUserDto(user);
+    }
+
+    // Make a post method to insert a new user
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto insertUser(@RequestBody UserDto userDto){
