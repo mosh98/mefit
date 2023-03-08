@@ -2,9 +2,11 @@ package com.example.mefit.services.user;
 
 import com.example.mefit.models.User;
 import com.example.mefit.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class UserServiceImp implements UserService{
 
     UserRepository userRepository;
