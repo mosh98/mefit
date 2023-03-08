@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Profile {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name="profile_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="profile_id")
     private int id;
-    //@OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true
-    //@JoinColumn(name="profile_id", referencedColumnName = "id",nullable = true )
-   // private User user;
+    @JoinColumn(name="profile_id", referencedColumnName = "id",nullable = true )
+    private User user;
 
     //private Address address;
     @Column(length = 225)
