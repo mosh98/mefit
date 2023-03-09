@@ -45,4 +45,24 @@ public class UserController {
 
         return userMapper.userToUserDto(user);
     }
+
+    // Make a put method to update a user
+    @PutMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public UserDto updateUser(@PathVariable Integer id, @RequestBody UserDto userDto){
+        // Check if id exists
+        if(!userService.exists(id)){
+            throw new RuntimeException("The user with id " + id + " does not exist");
+        }
+        // Check if the id in the path is the same as the id in the body
+        if(!id.equals(userDto.getId())){
+            throw new RuntimeException("The id in the path must be the same as the id in the body");
+        }
+
+        // Dont update profile id to create a new profile if profile id already exists
+
+        User user = userService.update(userMapper.userDtoToUser(userDto));
+
+        return userMapper.userToUserDto(user);
+    }
 }
