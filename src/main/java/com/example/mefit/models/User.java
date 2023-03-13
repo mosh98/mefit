@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "fit_me_user")
+@Table(name = "user_mefit")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,7 @@ public class User {
     @Column(length = 100)
     private String e_mail;
 
+    //TODO: rethink password with keyload & auth
     @Column(length = 50)
     private String password;
 
@@ -25,10 +26,10 @@ public class User {
     private String last_name;
     @OneToOne(cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true
-    //@JoinColumn(name="user_id", referencedColumnName = "profile", nullable = true)
-    @JoinColumn(name="profile_id", referencedColumnName = "profile_id", nullable = true)
+    @JoinColumn(name="profile_id", referencedColumnName = "profile_id")
     private Profile profile;
 
-    // private Boolean isContributor;
-    // private Boolean isAdmin;
+    @Column(length = 15)
+    private String userType;
+
 }
