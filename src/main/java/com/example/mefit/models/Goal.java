@@ -17,7 +17,7 @@ public class Goal {
     private int id;
 
     @Column(length = 225)
-    private Date end_date;
+    private Date endDate;
 
     @Column(length = 225)
     private boolean achieved;
@@ -27,6 +27,7 @@ public class Goal {
 
 
     //TODO: list of workouts
+
 
 
 

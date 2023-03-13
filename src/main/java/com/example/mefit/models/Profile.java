@@ -19,14 +19,14 @@ public class Profile { //table name : profile
     @JoinColumn(name="user_id", referencedColumnName = "user_id" )
     private User user;
     @Column(length = 225)
-    private String profile_img;
+    private String profileImg;
     @Column(length = 10, nullable = true)
     private Integer weight;
     @Column(length = 10, nullable = true)
     private Integer height;
 
     @Column(length = 225, nullable = true)
-    private String medical_condition;
+    private String medicalCondition;
     @Column(length = 225, nullable = true)
     private String disabilities;
 

@@ -13,11 +13,14 @@ public class Address {
     @Column(length = 225)
     private String address;
 
-    @Column(length = 225)
+    @Column(length = 10)
     private  String post_code;
 
-    @Column(length = 225)
+    @Column(length = 50)
     private String city;
+
+    @Column(length = 50)
+    private String country;
 }
 
 
