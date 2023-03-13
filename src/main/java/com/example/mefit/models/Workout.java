@@ -1,9 +1,13 @@
 package com.example.mefit.models;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 public class Workout {
 
@@ -18,12 +22,21 @@ public class Workout {
     @Column(length = 100)
     private String type; // leg,core, upperbody, lower body etc
 
-    @Column(length = 100, nullable = false)
-    private boolean completed = false;
+    @Column(name="completed", nullable = false, columnDefinition = "boolean default false")
+    private boolean completed;
 
 
     @ManyToMany(mappedBy = "workouts")
     private Set<Program> programs;
+
+
+    //TODO cannot create workout without excercises
+    @OneToMany(mappedBy = "workout")
+    private Set<Exercise> exercises;
+
+    @ManyToOne
+    @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
+    private Goal goal;
 }
 
 

@@ -1,4 +1,4 @@
-package com.example.mefit.models;
+package com.example.mefit.models.enums;
 /*
 public enum Category {
 
