@@ -1,5 +1,6 @@
 package com.example.mefit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class Program {
             joinColumns = @JoinColumn(name = "program_id"),
             inverseJoinColumns = @JoinColumn(name = "workout_id")
     )
+    @JsonIgnore
     private Set<Workout> workouts;
 
 

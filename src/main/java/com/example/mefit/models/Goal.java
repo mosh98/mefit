@@ -1,5 +1,6 @@
 package com.example.mefit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +39,8 @@ public class Goal {
      * and the orphanRemoval attribute specifies that any Workout entities
      * that are no longer associated with a Goal entity should be removed from the database
      */
-    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "goal",  orphanRemoval = true)
+    @JsonIgnore
     private Set<Workout> workouts;
 
 

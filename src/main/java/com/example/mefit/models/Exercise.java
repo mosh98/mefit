@@ -1,6 +1,7 @@
 package com.example.mefit.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,6 +55,7 @@ public class Exercise {
     //map many to map to different excercises
     @ManyToOne
     @JoinColumn(name = "workout_id",referencedColumnName = "workout_id")
+    @JsonIgnore //otherwise circular reference happen and crashes. (example: 1. workout-> 2. list<Excercise> --> 3. workout again)
     private Workout workout;
 
 }
