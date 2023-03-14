@@ -25,6 +25,10 @@ public class Address {
 
     @Column(length = 50)
     private String country;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
+    private  Profile profile;
 }
 
 

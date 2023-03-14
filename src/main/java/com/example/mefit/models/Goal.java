@@ -23,12 +23,15 @@ public class Goal {
     @Column(length = 225)
     private Date endDate;
 
-    @Column(length = 225)
+    @Column(name="achieved", nullable = false, columnDefinition = "boolean default false")
     private boolean achieved;
 
-    @Column(length = 225)
+    @Column(name="active", nullable = false, columnDefinition = "boolean default false")
     private boolean active;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
+    private  Profile profile;
 
     //TODO: list of workouts
 

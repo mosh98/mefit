@@ -24,9 +24,10 @@ public class User {
     private String first_name;
     @Column(length = 50)
     private String last_name;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     // TODO we need to delete nullable=true
-    @JoinColumn(name="profile_id", referencedColumnName = "profile_id")
+    //@JoinColumn(name="profile_id", referencedColumnName = "profile_id")
     private Profile profile;
 
     @Column(length = 15)
