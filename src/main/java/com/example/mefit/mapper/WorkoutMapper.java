@@ -4,6 +4,8 @@ import com.example.mefit.models.Exercise;
 import com.example.mefit.models.Program;
 import com.example.mefit.models.Workout;
 import com.example.mefit.models.dto.WorkoutDTO;
+import com.example.mefit.services.workout.WorkoutService;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -43,9 +45,22 @@ public interface WorkoutMapper {
 
     //--------------workoutDTO --> WORKOUT Mapping----------------
 
-/*    @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
+/*   @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
     @Mapping(target="goal", source="goal", qualifiedByName = "goalConverter")
     @Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
-    Workout workoutDtoToWorkout(WorkoutDTO workoutDTO);*/
+    Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService);
+
+    @Named("goalConverter")
+    default Exercise goalConverter(int goalId, @Context WorkoutService workoutService){
+        //find wrokout by id
+
+        //from that workout get the goal object
+
+        return workoutService.findExerciseById(goalId);
+    }*/
+    @Mapping(target = "programs", ignore = true)
+    @Mapping(target = "goal", ignore = true)
+    @Mapping(target = "exercises", ignore = true)
+    Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService);
 
 }
