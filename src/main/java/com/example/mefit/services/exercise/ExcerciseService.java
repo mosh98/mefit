@@ -8,6 +8,8 @@ public interface ExcerciseService {
 
     List<Exercise> findAll();
 
+    Exercise findById(Integer id);
+
     List<Exercise> findByName(String name);
 
     List<Exercise> findByMuscleGroup(String muscleGroup);
@@ -15,6 +17,8 @@ public interface ExcerciseService {
     Exercise save(Exercise exercise);
 
     void deleteById(Integer id);
+
+    Exercise update(Integer id, Exercise exercise); //patch
 
 
 }

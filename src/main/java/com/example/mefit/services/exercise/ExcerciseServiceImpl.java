@@ -21,28 +21,68 @@ public class ExcerciseServiceImpl implements ExcerciseService {
     }
 
     @Override
+    public Exercise findById(Integer id) {
+        return excerciseRepository.findById(id).get();
+    }
+
+    @Override
     public List<Exercise> findByName(String name) {
         System.out.println("Find by name Not implemented");
         return null;
     }
 
+
+
+
     @Override
     public List<Exercise> findByMuscleGroup(String muscleGroup)
 
     {
-        System.out.println("Find by mucle group NOT IMPLEMENTED");
-        return null;
+        return excerciseRepository.findByMuscleGroup(muscleGroup);
     }
 
     @Override
     public Exercise save(Exercise exercise) {
-        System.out.println("Save Not implemented");
-        return null;
+        return excerciseRepository.save(exercise);
     }
 
     @Override
     public void deleteById(Integer id) {
-        System.out.println("Delete by id NOT IMPLEMENTED");
+        excerciseRepository.deleteById(id);
 
     }
+
+    @Override
+    public Exercise update(Integer id,Exercise exercise) {
+        Exercise exsistingExercise = excerciseRepository.findById(id).get();
+
+        if (exsistingExercise == null) {
+            return null;
+        }
+        //check if excercise is not null
+        if(exercise.getName() != null){
+            exsistingExercise.setName(exercise.getName());
+        }
+        if (exercise.getDescription() != null){
+            exsistingExercise.setDescription(exercise.getDescription());
+        }
+        if (exercise.getMuscleGroup() != null){
+            exsistingExercise.setMuscleGroup(exercise.getMuscleGroup());
+        }
+        if (exercise.getUserExperience() != null){
+            exsistingExercise.setUserExperience(exercise.getUserExperience());
+        }
+        if (exercise.getSets() != 0){
+            exsistingExercise.setSets(exercise.getSets());
+        }
+        if (exercise.getReps() != 0){
+            exsistingExercise.setReps(exercise.getReps());
+        }
+        exsistingExercise.setCompleted(exercise.isCompleted());
+
+        // Update the properties of the exercise object
+        return excerciseRepository.save(exsistingExercise);
+    }
+
+
 }
