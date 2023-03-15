@@ -17,6 +17,8 @@ public interface WorkoutRepository extends JpaRepository<Workout,Integer> {
     Optional<Workout> findById(Integer id);
 
     //Optional<Program> findByIdAnd
+    void deleteById(Integer id);
+
 
 
 

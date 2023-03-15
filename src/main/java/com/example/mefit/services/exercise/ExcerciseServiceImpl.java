@@ -32,7 +32,7 @@ public class ExcerciseServiceImpl implements ExcerciseService {
     }
 
 
-
+ //TODO: implement deleteby id
 
     @Override
     public List<Exercise> findByMuscleGroup(String muscleGroup)
@@ -54,8 +54,10 @@ public class ExcerciseServiceImpl implements ExcerciseService {
 
     @Override
     public Exercise update(Integer id,Exercise exercise) {
+        //gamla exercise
         Exercise exsistingExercise = excerciseRepository.findById(id).get();
 
+        //check if excercise is not null
         if (exsistingExercise == null) {
             return null;
         }
@@ -78,6 +80,14 @@ public class ExcerciseServiceImpl implements ExcerciseService {
         if (exercise.getReps() != 0){
             exsistingExercise.setReps(exercise.getReps());
         }
+        if(exercise.getVideoLink() != null){
+            exsistingExercise.setVideoLink(exercise.getVideoLink());
+        }
+
+        if(exercise.getExerciseImageLink() != null){
+            exsistingExercise.setExerciseImageLink(exercise.getExerciseImageLink());
+        }
+
         exsistingExercise.setCompleted(exercise.isCompleted());
 
         // Update the properties of the exercise object
