@@ -24,7 +24,9 @@ INSERT INTO workout (name, type ) VALUES ('Workout 4', 'Type 2');
 
 --insert excercises
 INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 1', 'Beginner', 3, 10, 'Chest',1);
+INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 11', 'Beginner', 3, 10, 'Chest',1);
 INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 2', 'Intermediate', 4, 8, 'Back',2);
+INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 55', 'Intermediate', 4, 8, 'Back',2);
 INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 3', 'Advanced', 5, 6, 'Legs',3);
 INSERT INTO exercise (name, user_experience, sets, reps, muscle_group,workout_id) VALUES ('Exercise 4', 'Beginner', 3, 10, 'Chest',4);
 

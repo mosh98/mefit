@@ -1,5 +1,6 @@
 package com.example.mefit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,9 +30,6 @@ public class Goal {
     @Column(name="active", nullable = false, columnDefinition = "boolean default false")
     private boolean active;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
-    private  Profile profile;
 
     //TODO: list of workouts
 
@@ -43,6 +41,7 @@ public class Goal {
      */
     //Remove orphanRemoval = true  put does not work with this.
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Workout> workouts;
 
 

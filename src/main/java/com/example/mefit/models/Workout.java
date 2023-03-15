@@ -1,6 +1,6 @@
 package com.example.mefit.models;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,6 @@ import java.util.Set;
 @Setter
 @Entity
 public class Workout {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "workout_id")
@@ -37,6 +36,7 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
     private Goal goal;
+
 }
 
 
