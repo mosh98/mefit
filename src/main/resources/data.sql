@@ -13,7 +13,8 @@ INSERT INTO address (address, post_code, city,country,profile_id) VALUES ('Defv√
 INSERT INTO program (name, category) VALUES ('Program 1', 'Category 1');
 INSERT INTO program (name, category) VALUES ('Program 2', 'Category 2');
 
-INSERT INTO goal ( profile_id)VALUES ( 1);
+INSERT INTO goal ( profile_id, end_date )VALUES ( 1, TO_DATE('03/22/2023', 'mm/dd/yyyy'));
+
 
 INSERT INTO workout (name, type ) VALUES ('Workout 1', 'Type 1');
 INSERT INTO workout (name, type) VALUES ('Workout 2', 'Type 2');
