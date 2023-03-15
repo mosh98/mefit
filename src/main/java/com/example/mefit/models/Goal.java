@@ -41,7 +41,8 @@ public class Goal {
      * and the orphanRemoval attribute specifies that any Workout entities
      * that are no longer associated with a Goal entity should be removed from the database
      */
-    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
+    //Remove orphanRemoval = true  put does not work with this.
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
     private Set<Workout> workouts;
 
 
