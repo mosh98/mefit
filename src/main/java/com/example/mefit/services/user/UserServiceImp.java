@@ -36,6 +36,32 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public User update(Integer id, User user) {
+        //Old user
+        User existingUser = userRepository.findById(id).get();
+
+        if(existingUser==null){
+            return null;
+        }
+        if(user.getPassword()!= null){
+            existingUser.setPassword(user.getPassword());
+        }
+        if(user.getE_mail()!=null){
+            existingUser.setPassword(user.getPassword());
+        }
+        if(user.getFirst_name()!=null){
+            existingUser.setFirst_name(user.getFirst_name());
+        }
+        if(user.getLast_name()!=null){
+            existingUser.setLast_name(user.getLast_name());
+        }
+        if (user.getUserType() != null) {
+            existingUser.setUserType(user.getUserType());
+        }
+        return userRepository.save(existingUser);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         /**
          * TODO: remove adress, goal and profile from user

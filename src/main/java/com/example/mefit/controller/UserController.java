@@ -4,6 +4,9 @@ import com.example.mefit.mapper.UserMapper;
 import com.example.mefit.models.User;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.DataException;
 import org.springframework.http.HttpStatus;
@@ -48,6 +51,7 @@ public class UserController {
         return userMapper.userToUserDto(user);
     }
 
+    /*
     // Make a put method to update a user
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
@@ -66,6 +70,22 @@ public class UserController {
         User user = userService.update(userMapper.userDtoToUser(userDto));
 
         return userMapper.userToUserDto(user);
+    }
+
+     */
+
+    //
+    @Operation(summary = "Update user by id", description = "Update user by id")
+    @ApiResponse(responseCode = "200", description = "User updated")
+    @ApiResponse(responseCode = "404", description = "User not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @PatchMapping()
+    @RequestMapping(path = "/updateUser/{id}",method = RequestMethod.PATCH)
+    public UserDto updateUser(@PathVariable Integer id, @RequestBody UserDto userDto){
+
+        User user = userMapper.userDtoToUser(userDto);
+
+        return userMapper.userToUserDto(userService.update(id,user));
     }
 
     //delete user by id

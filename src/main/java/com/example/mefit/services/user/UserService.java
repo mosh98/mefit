@@ -9,4 +9,5 @@ import java.util.Collection;
 @Service
 public interface UserService extends CrudService<User, Integer> {
     Collection<User> findAllByFirstName(String firstName);
+    User update(Integer id, User user);
 }
