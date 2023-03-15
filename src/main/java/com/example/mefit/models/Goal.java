@@ -24,10 +24,10 @@ public class Goal {
     @Column(length = 225)
     private Date endDate;
 
-    @Column(length = 225)
+    @Column(name="achieved", nullable = false, columnDefinition = "boolean default false")
     private boolean achieved;
 
-    @Column(length = 225)
+    @Column(name="active", nullable = false, columnDefinition = "boolean default false")
     private boolean active;
 
 
@@ -39,12 +39,14 @@ public class Goal {
      * and the orphanRemoval attribute specifies that any Workout entities
      * that are no longer associated with a Goal entity should be removed from the database
      */
-    @OneToMany(mappedBy = "goal",  orphanRemoval = true)
+    //Remove orphanRemoval = true  put does not work with this.
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Workout> workouts;
 
-
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
+    private  Profile profile;
 
 
 }

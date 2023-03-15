@@ -1,5 +1,6 @@
 package com.example.mefit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,13 +31,17 @@ public class Profile { //table name : profile
     @Column(length = 225, nullable = true)
     private String disabilities;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="address_id", referencedColumnName = "address_id")
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name="address_id", referencedColumnName = "address_id")
+    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Address address;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="goal_id", referencedColumnName = "goal_id")
+    //, fetch = FetchType.LAZY, cascade = CascadeType.ALL
+    @OneToOne(mappedBy = "profile")
+    //@JoinColumn(name="goal_id", referencedColumnName = "goal_id")
+    //@JsonIgnore
     private Goal goal;
 
 
