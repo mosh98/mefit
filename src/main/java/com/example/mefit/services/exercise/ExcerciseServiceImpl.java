@@ -32,7 +32,7 @@ public class ExcerciseServiceImpl implements ExcerciseService {
     }
 
 
-
+ //TODO: implement deleteby id
 
     @Override
     public List<Exercise> findByMuscleGroup(String muscleGroup)

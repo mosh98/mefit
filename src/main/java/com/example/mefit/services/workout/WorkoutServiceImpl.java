@@ -40,13 +40,12 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     @Override
     public void deleteById(Integer id) {
-        System.out.println("Workout deleted, NOT IMPLEMENTED YET");
 
+            workoutRepository.deleteById(id);
     }
 
     @Override
     public Set<Program> getProgramByWorkoutId(Integer id) {
-        System.out.println("GET PROGRAM by Workout ID, NOT IMPLEMENTED YET");
 
         //get the workout object using id
         Optional<Workout> workoutObject =  workoutRepository.findById(id);

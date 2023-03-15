@@ -5,7 +5,9 @@ import com.example.mefit.models.User;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.DataException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -65,4 +67,29 @@ public class UserController {
 
         return userMapper.userToUserDto(user);
     }
+
+    //delete user by id
+    @DeleteMapping
+    @RequestMapping(path = "/deleteUser/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id){
+
+        try{
+            userService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+              }catch (DataException e){
+                  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+              }
+    }
+
+    /**
+     *  public ResponseEntity<?> deleteExcercise(@PathVariable Integer id){
+     *
+     *         try {
+     *             excerciseService.deleteById(id);
+     *             return new ResponseEntity<>(HttpStatus.OK);
+     *         }catch (DataException e){
+     *             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+     *         }
+     *     }
+     */
 }
