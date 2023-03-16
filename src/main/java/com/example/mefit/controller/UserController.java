@@ -1,6 +1,7 @@
 package com.example.mefit.controller;
 
 import com.example.mefit.mapper.UserMapper;
+import com.example.mefit.models.Address;
 import com.example.mefit.models.User;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.user.UserService;
@@ -49,6 +50,15 @@ public class UserController {
         User user = userService.add(userMapper.userDtoToUser(userDto));
 
         return userMapper.userToUserDto(user);
+    }
+
+
+    @GetMapping("/addressByUserId/{id}")
+    @ResponseStatus(value=HttpStatus.OK)
+    public Address getAddressByUserId(@PathVariable Integer id ){
+
+        Address userAddress= userService.getUserAddress(id);
+        return userAddress;
     }
 
     /*
