@@ -7,7 +7,9 @@ import com.example.mefit.models.dto.ProfileDto;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.profile.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,12 @@ public class ProfileController {
     private final ProfileMapper profileMapper;
 
     // Make a get method to get all profiles
+    @Operation(summary = "Get all profiles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found all profiles", content = @Content),
+            @ApiResponse(responseCode = "404", description = "No profiles found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<ProfileDto> getAllProfiles() {
