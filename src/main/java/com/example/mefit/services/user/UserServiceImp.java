@@ -37,6 +37,15 @@ public class UserServiceImp implements UserService{
         return userRepository.save(entity);
     }
 
+    public Address getUserAddress(Integer id) {
+        User user = userRepository.findById(id).get();
+
+        if(user!=null){
+            return user.getProfile().getAddress();
+        }
+        return null;
+    }
+
     @Override
     public User update(User entity) {
         return userRepository.save(entity);
