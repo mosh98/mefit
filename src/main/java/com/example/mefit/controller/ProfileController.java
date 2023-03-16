@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profiles")
@@ -22,7 +23,14 @@ public class ProfileController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<ProfileDto> getAllProfiles() {
-        return profileMapper.profileToProfileDto(profileService.findAll());
+        Collection<Profile> profiles =  profileService.findAll();
+
+        // Loop through each profile and convert into dto and store it in a list
+        // return list
+        Collection<ProfileDto> profileDtos = profiles.stream().map(profile -> profileMapper.profileToProfileDto(profile)).collect(Collectors.toList());
+
+
+        return profileDtos;
     }
 
     // Make a get method to get a profile by id
