@@ -64,7 +64,7 @@ public class UserServiceImp implements UserService{
     @Override
     public void deleteById(Integer id) {
         /**
-         * TODO: remove adress, goal and profile from user
+         * TODO: remove adress, goal and profile from user ()
          * TODO: in order to remove profile we need to remove profile from adress
          * TODO: in order to remove profile we need to remove profile from goal
          */
@@ -74,10 +74,22 @@ public class UserServiceImp implements UserService{
         //get user profile
         Profile profile = user.getProfile();
 
+        //get profile goal
+            //from the goal object set profile to null
+
+        //get profile adress
+            ////from the goal object set profile to null
+
+        //
+
+
 
         profile.setUser(null);
         profile.setAddress(null);
         profile.setGoal(null);
+
+        //radera profile
+        //radera adress
 
         user.setProfile(null);
 

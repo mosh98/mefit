@@ -74,7 +74,7 @@ public class UserController {
 
      */
 
-    //
+    //Update user by id
     @Operation(summary = "Update user by id", description = "Update user by id")
     @ApiResponse(responseCode = "200", description = "User updated")
     @ApiResponse(responseCode = "404", description = "User not found")
