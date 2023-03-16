@@ -41,4 +41,30 @@ public class ProfileServiceImp implements ProfileService {
     public boolean exists(Integer id) {
         return profileRepository.existsById(id);
     }
+
+    @Override
+    public Profile update(Integer id, Profile profile) {
+
+        Profile existingProfile = profileRepository.findById(id).get();
+
+        if(existingProfile==null){
+            return null;
+        }
+        if(profile.getProfileImg()!=null){
+            existingProfile.setProfileImg(profile.getProfileImg());
+        }
+        if(profile.getHeight()!=null){
+            existingProfile.setHeight(profile.getHeight());
+        }
+        if(profile.getWeight()!=null){
+            existingProfile.setWeight(profile.getWeight());
+        }
+        if(profile.getMedicalCondition()!=null){
+            existingProfile.setMedicalCondition(profile.getMedicalCondition());
+        }
+        if(profile.getDisabilities()!=null){
+            existingProfile.setDisabilities(profile.getDisabilities());
+        }
+        return profileRepository.save(existingProfile);
+    }
 }

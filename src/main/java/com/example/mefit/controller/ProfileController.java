@@ -2,8 +2,12 @@ package com.example.mefit.controller;
 
 import com.example.mefit.mapper.ProfileMapper;
 import com.example.mefit.models.Profile;
+import com.example.mefit.models.User;
 import com.example.mefit.models.dto.ProfileDto;
+import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.profile.ProfileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +43,7 @@ public class ProfileController {
     public ProfileDto getProfileById(@PathVariable Integer id) {
         return profileMapper.profileToProfileDto(profileService.findById(id));
     }
-
+/*
     // Make a put method to update a profile
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
@@ -57,6 +61,21 @@ public class ProfileController {
         Profile profile = profileService.update(profileMapper.profileDtoToProfile(profileDto));
 
         return profileMapper.profileToProfileDto(profile);
+    }
+
+ */
+    //Update Profile by id
+    @Operation(summary = "Update profile by id", description = "Update profile by id")
+    @ApiResponse(responseCode = "200", description = "Profile updated")
+    @ApiResponse(responseCode = "404", description = "Profile not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @PatchMapping()
+    @RequestMapping(path = "/updateProfile/{id}",method = RequestMethod.PATCH)
+    public ProfileDto updateProfile(@PathVariable Integer id, @RequestBody ProfileDto profileDto){
+
+        Profile profile = profileMapper.profileDtoToProfile(profileDto);
+
+        return profileMapper.profileToProfileDto(profileService.update(id,profile));
     }
 
 }

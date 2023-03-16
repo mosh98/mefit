@@ -1,7 +1,11 @@
 package com.example.mefit.services.user;
 
+import com.example.mefit.models.Address;
+import com.example.mefit.models.Goal;
 import com.example.mefit.models.Profile;
 import com.example.mefit.models.User;
+import com.example.mefit.repositories.AddressRepository;
+import com.example.mefit.repositories.ProfileRepository;
 import com.example.mefit.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,9 @@ import java.util.Collection;
 public class UserServiceImp implements UserService{
 
     private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
+
+    private final AddressRepository addressRepository;
 
     @Override
     public User findById(Integer id) {
@@ -36,9 +43,35 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public User update(Integer id, User user) {
+        //Old user
+        User existingUser = userRepository.findById(id).get();
+
+        if(existingUser==null){
+            return null;
+        }
+        if(user.getPassword()!= null){
+            existingUser.setPassword(user.getPassword());
+        }
+        if(user.getE_mail()!=null){
+            existingUser.setPassword(user.getPassword());
+        }
+        if(user.getFirst_name()!=null){
+            existingUser.setFirst_name(user.getFirst_name());
+        }
+        if(user.getLast_name()!=null){
+            existingUser.setLast_name(user.getLast_name());
+        }
+        if (user.getUserType() != null) {
+            existingUser.setUserType(user.getUserType());
+        }
+        return userRepository.save(existingUser);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         /**
-         * TODO: remove adress, goal and profile from user
+         * TODO: remove adress, goal and profile from user ()
          * TODO: in order to remove profile we need to remove profile from adress
          * TODO: in order to remove profile we need to remove profile from goal
          */
@@ -48,12 +81,30 @@ public class UserServiceImp implements UserService{
         //get user profile
         Profile profile = user.getProfile();
 
+        //get profile goal
+        Goal goal = profile.getGoal();
+            //from the goal object set profile to null
 
+        //get profile adress
+        Address address= profile.getAddress();
+            ////from the address object set profile to null
+
+        //
+
+        goal.setProfile(null);
+        address.setProfile(null);
         profile.setUser(null);
         profile.setAddress(null);
         profile.setGoal(null);
 
         user.setProfile(null);
+
+        //radera profile
+        profileRepository.deleteById(profile.getId());
+
+        //radera adress
+        addressRepository.deleteById(address.getId());
+
 
         userRepository.deleteById(id);
     }
