@@ -35,9 +35,15 @@ public class GoalServiceImp implements GoalService {
 
     @Override
     public Goal update(Integer id, Goal goal) {
+        Goal existingGoal = goalRepository.findById(id).get();
 
-
-        return goalRepository.save(goal);
+        if(existingGoal==null){
+            return null;
+        }
+        if(goal.getEndDate()!=null){
+            existingGoal.setEndDate(goal.getEndDate());
+        }
+        return goalRepository.save(existingGoal);
     }
 
     @Override

@@ -25,4 +25,6 @@ public interface WorkoutService {
     List<Exercise> getWorkoutExcercises(Integer id);
 
     Goal getWorkoutGoal(Integer id);
+
+    Workout update (Integer id, Workout workout);
 }
