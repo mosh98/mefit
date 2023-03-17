@@ -76,5 +76,27 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
         return null;
     }
+    @Override
+    public Workout update(Integer id, Workout workout ){
+        //old workout
+        Workout existingWorkout = workoutRepository.findById(id).get();
+
+        //check if workout is not null
+        if(existingWorkout==null){
+            return null;
+        }
+        if(workout.getName()!=null){
+            existingWorkout.setName(workout.getName());
+        }
+        if(workout.getType()!=null){
+            existingWorkout.setType(workout.getType());
+        }
+
+        existingWorkout.setCompleted(workout.isCompleted());
+
+        return workoutRepository.save(existingWorkout);
+
+    }
+
 
 }

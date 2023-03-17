@@ -9,6 +9,7 @@ import com.example.mefit.models.Workout;
 import com.example.mefit.models.dto.WorkoutDTO;
 import com.example.mefit.services.workout.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.DataException;
 import org.springframework.http.HttpStatus;
@@ -120,7 +121,19 @@ public class WorkoutController {
         return workoutMapper.workoutToWorkoutDto(workoutService.save(workout));
     }
 
-    //TODO: update workout
+    // Update Workout
+    @Operation(summary = "Update workout by id", description = "Update workout by id")
+    @ApiResponse(responseCode = "200", description = "Workout updated")
+    @ApiResponse(responseCode = "404", description = "Workout not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @PatchMapping()
+    @RequestMapping(path = "/updateWorkout/{id}",method = RequestMethod.PATCH)
+    public WorkoutDTO updateWorkout(@PathVariable Integer id, @RequestBody WorkoutDTO workoutDto){
+
+        Workout workout = workoutMapper.workoutDtoToWorkout(workoutDto,workoutService);
+
+        return workoutMapper.workoutToWorkoutDto(workoutService.update(id,workout));
+    }
 
     //delete workout by id
     @Operation(summary = "Delete workout by id", description = "Delete workout by id")
