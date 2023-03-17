@@ -69,7 +69,14 @@ public class ExcerciseController {
     }
 
 
-    //get excercise by id
+    //get exercise by id
+    @Operation(summary = "Get an exercise by id", description = "Retrieve an exercise from the system by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercise retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDto.class))),
+            @ApiResponse(responseCode = "404", description = "Exercise not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @GetMapping
     @RequestMapping(path = "/exerciseById/{id}",method = RequestMethod.GET)
     public ExerciseDto getExerciseById(@PathVariable Integer id){
@@ -79,7 +86,7 @@ public class ExcerciseController {
     }
 
     //get all exercises by muscle group
-    @Operation(summary = "Get an exercise by ID", description = "Retrieve a user from the system by ID")
+    @Operation(summary = "Get an exercise by MuscleGroup id", description = "Retrieve an exercise MuscleGroup from the system by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Exercise retrieved successfully",
                     content = @Content(mediaType = "application/json",
