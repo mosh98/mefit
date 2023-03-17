@@ -11,14 +11,14 @@ import java.util.Collection;
 public interface ProfileMapper {
 
     @Mapping(target = "id", source = "profileDto.id")
-    @Mapping(target = "user.id", source = "profileDto.user")
+    @Mapping(target = "user", ignore = true)
     @Mapping(target = "profileImg", source = "profileDto.profileImg")
     @Mapping(target = "weight", source = "profileDto.weight")
     @Mapping(target = "height", source = "profileDto.height")
     @Mapping(target = "medicalCondition", source = "profileDto.medicalCondition")
     @Mapping(target = "disabilities", source = "profileDto.disabilities")
-    @Mapping(target = "goal.id", source = "profileDto.goal")
-    @Mapping(target = "address.id", source = "profileDto.address")
+    @Mapping(target = "goal", ignore = true)
+    @Mapping(target = "address", ignore = true)
     Profile profileDtoToProfile(ProfileDto profileDto);
 
     @Mapping(target = "id", source = "profile.id")

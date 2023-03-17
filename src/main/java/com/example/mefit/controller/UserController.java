@@ -65,7 +65,7 @@ public class UserController {
                             schema = @Schema(implementation = UserDto.class))),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
-    @GetMapping("/{id}")
+    @GetMapping("/userById/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public UserDto getUserById(@PathVariable Integer id){
         User user = userService.findById(id);

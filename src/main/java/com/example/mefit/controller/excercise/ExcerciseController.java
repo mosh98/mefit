@@ -3,10 +3,15 @@ package com.example.mefit.controller.excercise;
 import com.example.mefit.mapper.ExerciseMapper;
 import com.example.mefit.models.Exercise;
 import com.example.mefit.models.dto.ExerciseDto;
+import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.exercise.ExcerciseService;
 import com.example.mefit.services.workout.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.DataException;
 import org.springframework.http.HttpStatus;
@@ -18,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/excercises")
+@RequestMapping("/exercises")
 @RequiredArgsConstructor
 public class ExcerciseController {
 
@@ -42,10 +47,16 @@ public class ExcerciseController {
     //TODO: instantiate mapper
     private final ExerciseMapper excerciseMapper;
 
-    //get all excercises
+    //get all exercises
+    @Operation(summary = "Get all exercises", description = "Retrieves a list of all users in the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercises retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ExerciseDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @GetMapping
-    @RequestMapping(path = "/allExcercises",method = RequestMethod.GET)
-    public List<ExerciseDto> getAllExcercises(){
+    @RequestMapping(path = "/allExercises",method = RequestMethod.GET)
+    public List<ExerciseDto> getAllExercises(){
 
         List<Exercise> exercises = excerciseService.findAll();
         List<ExerciseDto> exerciseDtos = new ArrayList<>();
@@ -60,17 +71,24 @@ public class ExcerciseController {
 
     //get excercise by id
     @GetMapping
-    @RequestMapping(path = "/excerciseById/{id}",method = RequestMethod.GET)
-    public ExerciseDto getExcerciseById(@PathVariable Integer id){
+    @RequestMapping(path = "/exerciseById/{id}",method = RequestMethod.GET)
+    public ExerciseDto getExerciseById(@PathVariable Integer id){
 
-        //return excerciseService.findById(id);
+        //return exerciseService.findById(id);
         return excerciseMapper.exerciseToExerciseDto(excerciseService.findById(id));
     }
 
-    //get all excercises by muscle group
+    //get all exercises by muscle group
+    @Operation(summary = "Get an exercise by ID", description = "Retrieve a user from the system by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Exercise retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ExerciseDto.class))),
+            @ApiResponse(responseCode = "404", description = "Exercise not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @GetMapping
-    @RequestMapping(path = "/excerciseByMuscleGroup/{muscleGroup}",method = RequestMethod.GET)
-    public List<ExerciseDto> getExcerciseByMuscleGroup(@PathVariable String muscleGroup){
+    @RequestMapping(path = "/exerciseByMuscleGroup/{muscleGroup}",method = RequestMethod.GET)
+    public List<ExerciseDto> getExerciseByMuscleGroup(@PathVariable String muscleGroup){
 
 
 
@@ -80,10 +98,14 @@ public class ExcerciseController {
 
     }
 
-    // Post New Excercise
+    // Post New Exercise
+    @Operation(summary = "Create a new exercise")
+    @ApiResponse(responseCode = "201", description = "Exercise created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExerciseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     @PostMapping
-    @RequestMapping(path = "/newExcercise",method = RequestMethod.POST)
-    public ExerciseDto postNewExcercise(@RequestBody ExerciseDto exerciseDto){
+    @RequestMapping(path = "/newExercise",method = RequestMethod.POST)
+    public ExerciseDto postNewExercise(@RequestBody ExerciseDto exerciseDto){
 
 
         Exercise exercise = excerciseMapper.exerciseDtoToExercise(exerciseDto,workoutService);
@@ -91,14 +113,14 @@ public class ExcerciseController {
         return excerciseMapper.exerciseToExerciseDto( excerciseService.save(exercise));
     }
 
-    // Update Excercise
-    @Operation(summary = "Update excercise by id", description = "Update excercise by id")
-    @ApiResponse(responseCode = "200", description = "Excercise updated")
-    @ApiResponse(responseCode = "404", description = "Excercise not found")
+    // Update Exercise
+    @Operation(summary = "Update exercise by id", description = "Update exercise by id")
+    @ApiResponse(responseCode = "200", description = "Exercise updated")
+    @ApiResponse(responseCode = "404", description = "Exercise not found")
     @ApiResponse(responseCode = "400", description = "Invalid input")
     @PatchMapping()
-    @RequestMapping(path = "/updateExcercise/{id}",method = RequestMethod.PATCH)
-    public ExerciseDto updateExcercise(@PathVariable Integer id, @RequestBody ExerciseDto exerciseDto){
+    @RequestMapping(path = "/updateExercise/{id}",method = RequestMethod.PATCH)
+    public ExerciseDto updateExercise(@PathVariable Integer id, @RequestBody ExerciseDto exerciseDto){
 
         Exercise exercise = excerciseMapper.exerciseDtoToExercise(exerciseDto,workoutService);
 
@@ -106,12 +128,12 @@ public class ExcerciseController {
     }
 
     // Delete Excercise
-    @Operation(summary = "Delete excercise by id", description = "Delete excercise by id")
-    @ApiResponse(responseCode = "200", description = "Excercise deleted")
-    @ApiResponse(responseCode = "404", description = "Excercise not found")
+    @Operation(summary = "Delete exercise by id", description = "Delete exercise by id")
+    @ApiResponse(responseCode = "200", description = "Exercise deleted")
+    @ApiResponse(responseCode = "404", description = "Exercise not found")
     @DeleteMapping
-    @RequestMapping(path = "/deleteExcercise/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteExcercise(@PathVariable Integer id){
+    @RequestMapping(path = "/deleteExercise/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteExercise(@PathVariable Integer id){
 
         try {
             excerciseService.deleteById(id);
