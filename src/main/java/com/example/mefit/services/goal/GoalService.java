@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface GoalService extends CrudService<Goal, Integer> {
+
+    Goal update(Integer id, Goal goal);
 }

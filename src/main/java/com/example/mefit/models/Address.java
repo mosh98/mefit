@@ -1,5 +1,6 @@
 package com.example.mefit.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class Address {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
+    @JsonIgnore
     private  Profile profile;
 }
 
