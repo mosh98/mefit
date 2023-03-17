@@ -14,6 +14,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/addresses")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class AddressController {
 
     private final AddressService addressService;
