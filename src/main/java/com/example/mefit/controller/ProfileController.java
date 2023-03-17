@@ -3,11 +3,16 @@ package com.example.mefit.controller;
 import com.example.mefit.mapper.ProfileMapper;
 import com.example.mefit.models.Profile;
 import com.example.mefit.models.User;
+import com.example.mefit.models.dto.AddressDto;
 import com.example.mefit.models.dto.ProfileDto;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.profile.ProfileService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +29,13 @@ public class ProfileController {
     private final ProfileMapper profileMapper;
 
     // Make a get method to get all profiles
+    @Operation(summary = "Get all profiles", description = "Returns a list of all  profiles in the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Profiles retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = AddressDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<ProfileDto> getAllProfiles() {
@@ -38,6 +50,13 @@ public class ProfileController {
     }
 
     // Make a get method to get a profile by id
+    @Operation(summary = "Get a profile by id", description = "Returns a profile from the system by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Profile found successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDto.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Profile not found", content = @Content)
+    })
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public ProfileDto getProfileById(@PathVariable Integer id) {

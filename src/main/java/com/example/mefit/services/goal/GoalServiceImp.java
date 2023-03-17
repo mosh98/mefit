@@ -1,5 +1,6 @@
 package com.example.mefit.services.goal;
 
+import com.example.mefit.models.Address;
 import com.example.mefit.models.Goal;
 import com.example.mefit.repositories.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class GoalServiceImp implements GoalService {
     @Override
     public Goal update(Goal entity) {
         return goalRepository.save(entity);
+    }
+
+    @Override
+    public Goal update(Integer id, Goal goal) {
+
+
+        return goalRepository.save(goal);
     }
 
     @Override

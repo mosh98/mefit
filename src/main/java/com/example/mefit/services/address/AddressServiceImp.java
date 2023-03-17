@@ -32,6 +32,28 @@ public class AddressServiceImp implements AddressService {
         return addressRepository.save(entity);
     }
 
+    public Address update(Integer id, Address address) {
+        //Old address
+        Address existingAddress = addressRepository.findById(id).get();
+
+        if(existingAddress==null){
+            return null;
+        }
+        if(address.getAddress()!=null){
+            existingAddress.setAddress(address.getAddress());
+        }
+        if(address.getPost_code()!=null){
+            existingAddress.setPost_code(address.getPost_code());
+        }
+        if(address.getCity()!=null){
+            existingAddress.setCity(address.getCity());
+        }
+        if(address.getCountry()!=null){
+            existingAddress.setCountry(address.getCountry());
+        }
+        return addressRepository.save(existingAddress);
+    }
+
     @Override
     public void deleteById(Integer id) {
         addressRepository.deleteById(id);
