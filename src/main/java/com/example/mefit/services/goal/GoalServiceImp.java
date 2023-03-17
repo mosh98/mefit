@@ -43,6 +43,9 @@ public class GoalServiceImp implements GoalService {
         if(goal.getEndDate()!=null){
             existingGoal.setEndDate(goal.getEndDate());
         }
+        existingGoal.setAchieved(goal.isAchieved());
+        existingGoal.setActive(goal.isActive());
+
         return goalRepository.save(existingGoal);
     }
 
