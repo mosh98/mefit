@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProfileController {
 
+
     private final ProfileService profileService;
     private final ProfileMapper profileMapper;
 
