@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProfileController {
 
+
     private final ProfileService profileService;
     private final ProfileMapper profileMapper;
 
