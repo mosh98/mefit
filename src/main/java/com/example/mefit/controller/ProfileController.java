@@ -36,7 +36,7 @@ public class ProfileController {
                             array = @ArraySchema(schema = @Schema(implementation = AddressDto.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @GetMapping
+    @GetMapping("/allProfiles")
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<ProfileDto> getAllProfiles() {
         Collection<Profile> profiles =  profileService.findAll();
@@ -57,7 +57,7 @@ public class ProfileController {
             }),
             @ApiResponse(responseCode = "404", description = "Profile not found", content = @Content)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/profileById/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public ProfileDto getProfileById(@PathVariable Integer id) {
         return profileMapper.profileToProfileDto(profileService.findById(id));

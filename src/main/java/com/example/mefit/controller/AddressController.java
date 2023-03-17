@@ -35,7 +35,7 @@ public class AddressController {
                             array = @ArraySchema(schema = @Schema(implementation = AddressDto.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @GetMapping
+    @GetMapping("/allAddresses")
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<AddressDto> getAllAddresses() {
         return addressMapper.addressToAddressDto(addressService.findAll());
@@ -49,7 +49,7 @@ public class AddressController {
             }),
             @ApiResponse(responseCode = "404", description = "Address not found", content = @Content)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/addressByUserId/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public AddressDto getAddressById(@PathVariable Integer id) {
         return addressMapper.addressToAddressDto(addressService.findById(id));

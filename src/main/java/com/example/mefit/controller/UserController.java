@@ -50,7 +50,7 @@ public class UserController {
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping
+    @GetMapping("/allUsers")
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<UserDto> getAllUsers(){
 
@@ -79,7 +79,7 @@ public class UserController {
     @ApiResponse(responseCode = "201", description = "User created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
-    @PostMapping
+    @PostMapping("/newUser")
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto insertUser(@RequestBody UserDto userDto){
         User user = userService.add(userMapper.userDtoToUser(userDto));
