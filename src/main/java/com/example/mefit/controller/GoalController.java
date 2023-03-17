@@ -3,11 +3,16 @@ package com.example.mefit.controller;
 import com.example.mefit.mapper.GoalMapper;
 import com.example.mefit.models.Goal;
 import com.example.mefit.models.User;
+import com.example.mefit.models.dto.AddressDto;
 import com.example.mefit.models.dto.GoalDto;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.goal.GoalService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +28,29 @@ public class GoalController {
     private final GoalService goalService;
     private final GoalMapper goalMapper;
 
+    //Make a get method to get all goals
+    @Operation(summary = "Get all goals", description = "Returns a list of all goals in the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Goals retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GoalDto.class)))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<GoalDto> getAllGoals() {
         return goalMapper.goalToGoalDto(goalService.findAll());
     }
 
+
+    // Make a get method to get a goal by id
+    @Operation(summary = "Get a goal by id", description = "Returns a goal from the system by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Goal found successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = GoalDto.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Goal not found", content = @Content)
+    })
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public GoalDto getGoalById(@PathVariable Integer id) {
