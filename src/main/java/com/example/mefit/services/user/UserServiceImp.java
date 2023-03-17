@@ -8,7 +8,6 @@ import com.example.mefit.repositories.AddressRepository;
 import com.example.mefit.repositories.ProfileRepository;
 import com.example.mefit.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -19,8 +18,8 @@ public class UserServiceImp implements UserService{
 
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
-
     private final AddressRepository addressRepository;
+
 
     @Override
     public User findById(Integer id) {
@@ -39,9 +38,30 @@ public class UserServiceImp implements UserService{
 
     public Address getUserAddress(Integer id) {
         User user = userRepository.findById(id).get();
-
         if(user!=null){
+            System.out.println(user.toString());
+            System.out.println(user.getProfile().getAddress().getAddress());
             return user.getProfile().getAddress();
+        }
+        return null;
+    }
+
+    public Goal getUserGoal(Integer id) {
+        User user = userRepository.findById(id).get();
+        if(user!=null){
+            System.out.println(user.toString());
+            System.out.println(user.getProfile().getGoal().getEndDate());
+            return user.getProfile().getGoal();
+        }
+        return null;
+    }
+
+    public Profile getUserProfile(Integer id) {
+        User user = userRepository.findById(id).get();
+        if(user!=null){
+            System.out.println(user.toString());
+            System.out.println(user.getProfile().getHeight());
+            return user.getProfile();
         }
         return null;
     }
@@ -96,16 +116,13 @@ public class UserServiceImp implements UserService{
 
         //get profile adress
         Address address= profile.getAddress();
-            ////from the address object set profile to null
-
-        //
+            //from the address object set profile to null
 
         goal.setProfile(null);
         address.setProfile(null);
         profile.setUser(null);
         profile.setAddress(null);
         profile.setGoal(null);
-
         user.setProfile(null);
 
         //radera profile

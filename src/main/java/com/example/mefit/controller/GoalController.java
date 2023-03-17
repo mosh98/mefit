@@ -2,8 +2,12 @@ package com.example.mefit.controller;
 
 import com.example.mefit.mapper.GoalMapper;
 import com.example.mefit.models.Goal;
+import com.example.mefit.models.User;
 import com.example.mefit.models.dto.GoalDto;
+import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.goal.GoalService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +35,7 @@ public class GoalController {
         return goalMapper.goalToGoalDto(goalService.findById(id));
     }
 
+    /*
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public GoalDto updateGoal(@PathVariable Integer id, @RequestBody GoalDto goalDto) {
@@ -46,6 +51,23 @@ public class GoalController {
         Goal goal = goalService.update(goalMapper.goalDtoToGoal(goalDto));
 
         return goalMapper.goalToGoalDto(goal);
+    }
+
+     */
+
+    //Update user by id
+    @Operation(summary = "Update goal by id", description = "Update goal by id")
+    @ApiResponse(responseCode = "200", description = "Goal updated")
+    @ApiResponse(responseCode = "404", description = "Goal not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @PatchMapping()
+    @RequestMapping(path = "/updateGoal/{id}",method = RequestMethod.PATCH)
+    public GoalDto updateGoal(@PathVariable Integer id, @RequestBody GoalDto goalDto){
+
+        Goal goal = goalMapper.goalDtoToGoal(goalDto);
+
+        return goalMapper.goalToGoalDto(goalService.update(id,goal));
     }
 
 }
