@@ -36,7 +36,7 @@ public class GoalController {
                             array = @ArraySchema(schema = @Schema(implementation = GoalDto.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @GetMapping
+    @GetMapping("/allGoals")
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<GoalDto> getAllGoals() {
         return goalMapper.goalToGoalDto(goalService.findAll());
@@ -51,7 +51,7 @@ public class GoalController {
             }),
             @ApiResponse(responseCode = "404", description = "Goal not found", content = @Content)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/goalById/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public GoalDto getGoalById(@PathVariable Integer id) {
         return goalMapper.goalToGoalDto(goalService.findById(id));
