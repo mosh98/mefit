@@ -12,4 +12,6 @@ public class UserDto {
     private int profile;
 
     private String userType;
+
+    private String keyCloakId;
 }

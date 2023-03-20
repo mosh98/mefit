@@ -33,4 +33,7 @@ public class User {
     @Column(length = 15)
     private String userType;
 
+    @Column(length = 250)
+    private String keyCloakId;
+
 }

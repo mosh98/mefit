@@ -21,7 +21,7 @@ public interface WorkoutMapper {
 
     @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
     @Mapping(target="goal", source="goal.id")
-    @Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
+    //@Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
     WorkoutDTO workoutToWorkoutDto(Workout workout);
 
     @Named("programConverter")
@@ -33,6 +33,7 @@ public interface WorkoutMapper {
         return programs.stream().map(Program::getId).collect(Collectors.toSet());
     }
 
+/*
     @Named("exerciseConverter")
     default Set<Integer> exerciseConverter(Set<Exercise> exercises){
         //check if exercises is null then return empty set
@@ -41,6 +42,7 @@ public interface WorkoutMapper {
         }
         return exercises.stream().map(Exercise::getId).collect(Collectors.toSet());
     }
+*/
 
 
     //--------------workoutDTO --> WORKOUT Mapping----------------
