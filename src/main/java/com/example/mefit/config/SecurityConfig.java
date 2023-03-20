@@ -16,31 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration //but why?
 public class SecurityConfig {
 
-/*    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                // Enable CORS -- this is further configured on the controllers
-                .cors().and()
-                // Sessions will not be used
-                .sessionManagement().disable()
-                // Disable CSRF -- not necessary when there are no sessions
-                .csrf().disable()
-                // Enable security for http requests
-                .authorizeHttpRequests(authorize -> authorize
-                        // Specify paths where public access is allowed
-                        .requestMatchers("/users").permitAll()
-                        .requestMatchers("/workouts").hasRole("ADMIN")
 
-                        .anyRequest().authenticated()
-                ).oauth2ResourceServer()
-                .jwt()
-                .jwtAuthenticationConverter(jwtRoleAuthenticationConverter());
-
-        return http.build();
-    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        //enable swagger
         http
                 .cors().and()
                 .sessionManagement().disable()
@@ -49,6 +29,7 @@ public class SecurityConfig {
                         // Add a new public endpoint
                         .requestMatchers(new AntPathRequestMatcher("/public")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll() // Add this line
                         // Modify access control for /users and /workouts
                         .requestMatchers(new AntPathRequestMatcher("/users/**")).hasRole("USER")
                         .requestMatchers(new AntPathRequestMatcher("/workouts/**")).hasRole("USER")
@@ -62,6 +43,9 @@ public class SecurityConfig {
                 ).oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtRoleAuthenticationConverter());
+
+
+
 
         return http.build();
     }
