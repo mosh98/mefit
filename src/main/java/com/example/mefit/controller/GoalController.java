@@ -22,6 +22,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/goal")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class GoalController {
 
     private final GoalService goalService;
