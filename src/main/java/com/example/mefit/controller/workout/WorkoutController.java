@@ -117,6 +117,7 @@ public class WorkoutController {
     @PostMapping
     @RequestMapping(path = "/createWorkout",method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public WorkoutDTO createWorkout(@RequestBody WorkoutDTO workoutDTO){
         Workout workout = workoutMapper.workoutDtoToWorkout(workoutDTO,workoutService);
 
@@ -130,6 +131,7 @@ public class WorkoutController {
     @ApiResponse(responseCode = "400", description = "Invalid input")
     @PatchMapping()
     @RequestMapping(path = "/updateWorkout/{id}",method = RequestMethod.PATCH)
+    @PreAuthorize("hasRole('ADMIN')")
     public WorkoutDTO updateWorkout(@PathVariable Integer id, @RequestBody WorkoutDTO workoutDto){
 
         Workout workout = workoutMapper.workoutDtoToWorkout(workoutDto,workoutService);
