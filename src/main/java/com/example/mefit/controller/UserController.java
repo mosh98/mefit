@@ -82,6 +82,7 @@ public class UserController {
     @PostMapping("/newUser")
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto insertUser(@RequestBody UserDto userDto){
+        System.out.println("USER KEYCLOAK ID: " + userDto.getKeyCloakId());
         User user = userService.add(userMapper.userDtoToUser(userDto));
 
         return userMapper.userToUserDto(user);

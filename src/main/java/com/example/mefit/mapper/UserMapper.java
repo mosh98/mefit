@@ -11,6 +11,7 @@ import java.util.Collection;
 public interface UserMapper {
 
     @Mapping(target = "profile.id", source = "profile")
+    @Mapping(target = "id", ignore = true)
     User userDtoToUser(UserDto userDto);
 
     @Mapping(target = "profile", source = "profile.id")

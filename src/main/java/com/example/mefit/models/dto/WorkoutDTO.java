@@ -1,5 +1,6 @@
 package com.example.mefit.models.dto;
 
+import com.example.mefit.models.Exercise;
 import lombok.Data;
 
 import java.util.Set;
@@ -14,7 +15,7 @@ public class WorkoutDTO {
 
     private Set<Integer> programs; //program ids as a set
 
-    private Set<Integer> exercises; //excercise ids as a set
+    private Set<Exercise> exercises; //excercise ids as a set
 
     private int goal; //goal id
 
