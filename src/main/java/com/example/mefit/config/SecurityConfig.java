@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // Add a new public endpoint
                         .requestMatchers(new AntPathRequestMatcher("/public")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/swagger-ui/")).permitAll()
                         // Modify access control for /users and /workouts
                         .requestMatchers(new AntPathRequestMatcher("/users/**")).hasRole("USER")
                         .requestMatchers(new AntPathRequestMatcher("/workouts/**")).hasRole("USER")
