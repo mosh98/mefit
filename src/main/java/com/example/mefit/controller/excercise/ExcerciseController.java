@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.DataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,8 +37,6 @@ public class ExcerciseController {
      *  Update Excercise
      *  Delete Excercise
      *  Get Excercise by muscle group
-     *TODO: create mapper
-     * TODO: create DTOs
      */
 
     //TODO: instantiate service
@@ -57,6 +56,7 @@ public class ExcerciseController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @GetMapping
     @RequestMapping(path = "/allExercises",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
     public List<ExerciseDto> getAllExercises(){
 
         List<Exercise> exercises = excerciseService.findAll();
@@ -80,6 +80,7 @@ public class ExcerciseController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @GetMapping
     @RequestMapping(path = "/exerciseById/{id}",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
     public ExerciseDto getExerciseById(@PathVariable Integer id){
 
         //return exerciseService.findById(id);
@@ -96,6 +97,7 @@ public class ExcerciseController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @GetMapping
     @RequestMapping(path = "/exerciseByMuscleGroup/{muscleGroup}",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
     public List<ExerciseDto> getExerciseByMuscleGroup(@PathVariable String muscleGroup){
 
 
@@ -113,6 +115,7 @@ public class ExcerciseController {
     @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     @PostMapping
     @RequestMapping(path = "/newExercise",method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
     public ExerciseDto postNewExercise(@RequestBody ExerciseDto exerciseDto){
 
 
