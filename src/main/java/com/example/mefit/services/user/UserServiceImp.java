@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -143,5 +144,10 @@ public class UserServiceImp implements UserService{
     @Override
     public Collection<User> findAllByFirstName(String firstName) {
         return null;
+    }
+
+    @Override
+    public Optional<User> findByKeyCloakId(String keyCloakId) {
+        return userRepository.findByKeyCloakId(keyCloakId);
     }
 }
