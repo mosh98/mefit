@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS fit_me_user;
 DROP TABLE IF EXISTS users;
 
-INSERT INTO user_mefit (e_mail, first_name, last_name, password, user_type) VALUES ('sample1@gmail.com', 'Miwa','Guhrés','12345','User');
-INSERT INTO user_mefit (e_mail, first_name, last_name, password, user_type) VALUES ('sample2@gmail.com', 'Lovisa','Bohman','6789','User');
+INSERT INTO user_mefit (e_mail, first_name, last_name, password, user_type, key_cloak_id) VALUES ('sample1@gmail.com', 'Miwa','Guhrés','12345','User','oiuhjkiujiuj232');
+INSERT INTO user_mefit (e_mail, first_name, last_name, password, user_type, key_cloak_id) VALUES ('sample2@gmail.com', 'Lovisa','Bohman','6789','User','ikwoeidjk23424');
 INSERT INTO profile (disabilities, height, medical_condition, profile_img, weight, user_id) VALUES ('none', 170, 'none', 'img1', 55, 1);
 INSERT INTO profile (disabilities, height, medical_condition, profile_img, weight, user_id) VALUES ('none', 180, 'diabetes', 'img2', 100, 2);
 

@@ -7,6 +7,8 @@ import com.example.mefit.models.Goal;
 import com.example.mefit.models.Program;
 import com.example.mefit.models.Workout;
 import com.example.mefit.models.dto.WorkoutDTO;
+import com.example.mefit.services.exercise.ExcerciseService;
+import com.example.mefit.services.goal.GoalService;
 import com.example.mefit.services.workout.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,6 +33,13 @@ public class WorkoutController {
 
     //instiantiation of workoutService
     private final WorkoutService workoutService;
+
+    //instiantiation of ExcersiceService
+    private final ExcerciseService exerciseService;
+
+
+    //instiantiation of goalService
+    private final GoalService goalService;
 
     //instiantiation of workoutMapper
     private final WorkoutMapper workoutMapper;
@@ -120,7 +129,7 @@ public class WorkoutController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     public WorkoutDTO createWorkout(@RequestBody WorkoutDTO workoutDTO){
-        Workout workout = workoutMapper.workoutDtoToWorkout(workoutDTO,workoutService);
+        Workout workout = workoutMapper.workoutDtoToWorkout(workoutDTO,workoutService,exerciseService, goalService);
 
         return workoutMapper.workoutToWorkoutDto(workoutService.save(workout));
     }
@@ -135,7 +144,7 @@ public class WorkoutController {
     @PreAuthorize("hasRole('ADMIN')")
     public WorkoutDTO updateWorkout(@PathVariable Integer id, @RequestBody WorkoutDTO workoutDto){
 
-        Workout workout = workoutMapper.workoutDtoToWorkout(workoutDto,workoutService);
+        Workout workout = workoutMapper.workoutDtoToWorkout(workoutDto,workoutService,exerciseService, goalService);
 
         return workoutMapper.workoutToWorkoutDto(workoutService.update(id,workout));
     }
