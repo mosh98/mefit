@@ -8,6 +8,7 @@ import com.example.mefit.services.CrudService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public interface UserService extends CrudService<User, Integer> {
@@ -19,4 +20,6 @@ public interface UserService extends CrudService<User, Integer> {
     Goal getUserGoal(Integer id);
 
     Profile getUserProfile(Integer id);
+
+    Optional<User> findByKeyCloakId(String keyCloakId);
 }

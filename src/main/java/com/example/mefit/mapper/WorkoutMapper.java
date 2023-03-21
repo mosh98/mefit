@@ -1,14 +1,14 @@
 package com.example.mefit.mapper;
 
 import com.example.mefit.models.Exercise;
+import com.example.mefit.models.Goal;
 import com.example.mefit.models.Program;
 import com.example.mefit.models.Workout;
 import com.example.mefit.models.dto.WorkoutDTO;
+import com.example.mefit.services.exercise.ExcerciseService;
+import com.example.mefit.services.goal.GoalService;
 import com.example.mefit.services.workout.WorkoutService;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public interface WorkoutMapper {
 
     @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
     @Mapping(target="goal", source="goal.id")
-    //@Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
+    @Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
     WorkoutDTO workoutToWorkoutDto(Workout workout);
 
     @Named("programConverter")
@@ -33,7 +33,7 @@ public interface WorkoutMapper {
         return programs.stream().map(Program::getId).collect(Collectors.toSet());
     }
 
-/*
+
     @Named("exerciseConverter")
     default Set<Integer> exerciseConverter(Set<Exercise> exercises){
         //check if exercises is null then return empty set
@@ -42,7 +42,7 @@ public interface WorkoutMapper {
         }
         return exercises.stream().map(Exercise::getId).collect(Collectors.toSet());
     }
-*/
+
 
 
     //--------------workoutDTO --> WORKOUT Mapping----------------
@@ -60,9 +60,37 @@ public interface WorkoutMapper {
 
         return workoutService.findExerciseById(goalId);
     }*/
-    @Mapping(target = "programs", ignore = true)
-    @Mapping(target = "goal", ignore = true)
-    @Mapping(target = "exercises", ignore = true)
-    Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService);
+    //Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService);
+
+    @Mappings({
+            @Mapping(target = "id", source = "workoutDTO.id"),
+            @Mapping(target = "name", source = "workoutDTO.name"),
+            @Mapping(target = "type", source = "workoutDTO.type"),
+            @Mapping(target = "completed", source = "workoutDTO.completed"),
+            @Mapping(target = "programs", ignore = true),
+            @Mapping(target = "goal", source = "workoutDTO.goal", qualifiedByName = "goalConverter"),
+            @Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
+    })
+    Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService, @Context ExcerciseService exerciseService, @Context GoalService goalService);
+
+    @Named("exerciseConverterFromDto")
+    default Set<Exercise> exerciseConverterFromDto(Set<Integer> exercises, @Context ExcerciseService exerciseService ){
+        //check if exercises is null then return empty set
+        if(exercises == null){
+            return new HashSet<>();
+        }
+        return exercises.stream().map(exerciseService::findById).collect(Collectors.toSet());
+    }
+
+    @Named("goalConverter")
+    default Goal goalConverter(int goalId, @Context GoalService goalService){
+        //find wrokout by id
+
+        //from that workout get the goal object
+
+        return goalService.findById(goalId);
+    }
+
+
 
 }

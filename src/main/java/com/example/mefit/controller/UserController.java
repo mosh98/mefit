@@ -26,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -200,5 +201,26 @@ public class UserController {
               }catch (DataException e){
                   return new ResponseEntity<>(HttpStatus.NOT_FOUND);
               }
+    }
+
+    //get user by keycloak id
+    @Operation(summary = "Get user by keycloak id", description = "Returns a user from the system by keycloak id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserDto.class))}),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
+    @GetMapping("/userByKeycloakId/{id}")
+    @ResponseStatus(value=HttpStatus.OK)
+    public ResponseEntity<UserDto> getUserByKeycloakId(@PathVariable String id ){
+
+        Optional<User> user= userService.findByKeyCloakId(id);
+
+        if (! user.isPresent()) { // not found
+        return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(userMapper.userToUserDto(user.get()));
     }
 }
