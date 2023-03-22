@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -56,6 +57,8 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<UserDto> getAllUsers(){
 
+        //ArrayList<User> userArrayList = (ArrayList<User>) userService.findAll();
+
         return userMapper.userToUserDto(userService.findAll());
     }
 
@@ -85,6 +88,7 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto insertUser(@RequestBody UserDto userDto){
         System.out.println("USER KEYCLOAK ID: " + userDto.getKeyCloakId());
+        System.out.println("USER PROFILE ID" + userDto.getProfile());
         User user = userService.add(userMapper.userDtoToUser(userDto));
 
         return userMapper.userToUserDto(user);

@@ -14,10 +14,8 @@ public class Profile { //table name : profile
     @Column(name="profile_id")
     private int id;
 
-    // TODO we need to delete nullable=true
-    // JoinColumn and refrerencedColumnName should not be the same it should refer to the primary key of the other table
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id", referencedColumnName = "user_id" )
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
     @Column(length = 225)
     private String profileImg;
@@ -34,7 +32,7 @@ public class Profile { //table name : profile
     //@OneToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name="address_id", referencedColumnName = "address_id")
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.PERSIST)
     private Address address;
 
 
