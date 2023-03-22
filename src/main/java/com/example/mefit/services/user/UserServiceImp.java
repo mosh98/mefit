@@ -5,6 +5,7 @@ import com.example.mefit.models.Goal;
 import com.example.mefit.models.Profile;
 import com.example.mefit.models.User;
 import com.example.mefit.repositories.AddressRepository;
+import com.example.mefit.repositories.GoalRepository;
 import com.example.mefit.repositories.ProfileRepository;
 import com.example.mefit.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public class UserServiceImp implements UserService{
     private final ProfileRepository profileRepository;
     private final AddressRepository addressRepository;
 
+    private final GoalRepository goalRepository;
+
 
     @Override
     public User findById(Integer id) {
@@ -34,6 +37,24 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User add(User entity) {
+        Profile profile = new Profile();
+
+        profile.setUser(entity);
+        Goal g = new Goal();
+        g.setProfile(profile);
+        profile.setGoal(g);
+        goalRepository.save(g);
+
+
+        profile.setAddress(new Address());
+        profile.getAddress().setProfile(profile);
+        entity.setProfile(profile);
+
+        profileRepository.save(entity.getProfile());
+        addressRepository.save(entity.getProfile().getAddress());
+
+
+
         return userRepository.save(entity);
     }
 

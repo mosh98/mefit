@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class ProfileDto {
 
-    private Integer id;
+    private int id;
     private Integer user;
     private String profileImg;
     private Integer weight;

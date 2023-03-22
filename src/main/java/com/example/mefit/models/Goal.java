@@ -44,7 +44,7 @@ public class Goal {
     @JsonIgnore
     private Set<Workout> workouts;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
     private  Profile profile;
 
