@@ -37,13 +37,25 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User add(User entity) {
+        //TODO: before adding user chekc if any user exist with the same keycloak id
+        userRepository.findByKeyCloakId(entity.getKeyCloakId()).ifPresent(user -> {
+            throw new IllegalStateException("User exists with the same keycloak id");
+        });
+
+
+        //check if keycloak id is already in the database
+        Optional<User> user = userRepository.findByKeyCloakId(entity.getKeyCloakId());
+
+        if(user.isPresent()) {
+            
+            return user.get();
+
+        }
+
+
         Profile profile = new Profile();
 
         profile.setUser(entity);
-        Goal g = new Goal();
-        g.setProfile(profile);
-        profile.setGoal(g);
-        goalRepository.save(g);
 
 
         profile.setAddress(new Address());
