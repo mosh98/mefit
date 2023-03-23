@@ -29,8 +29,6 @@ public class Profile { //table name : profile
     @Column(length = 225, nullable = true)
     private String disabilities;
 
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name="address_id", referencedColumnName = "address_id")
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     private Address address;

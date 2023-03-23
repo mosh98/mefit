@@ -100,4 +100,20 @@ public class ProfileController {
         return profileMapper.profileToProfileDto(profileService.update(id,profile));
     }
 
+
+    //TODO: get user Profile by user keycloak id
+    @Operation(summary = "Get a profile by user keycloak id", description = "Returns a profile from the system by user keycloak id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Profile found successfully", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDto.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Profile not found", content = @Content)
+    })
+    @GetMapping("/profileByUserKeycloakId/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ProfileDto getProfileByUserKeycloakId(@PathVariable String id) {
+        return profileMapper.profileToProfileDto(profileService.findByUserKeycloakId(id).get());
+    }
+
+
 }
