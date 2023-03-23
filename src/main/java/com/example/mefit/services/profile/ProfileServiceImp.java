@@ -1,17 +1,23 @@
 package com.example.mefit.services.profile;
 
 import com.example.mefit.models.Profile;
+import com.example.mefit.models.User;
 import com.example.mefit.repositories.ProfileRepository;
+import com.example.mefit.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class ProfileServiceImp implements ProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
+
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public Profile findById(Integer id) {
         return profileRepository.findById(id).get();
@@ -66,5 +72,14 @@ public class ProfileServiceImp implements ProfileService {
             existingProfile.setDisabilities(profile.getDisabilities());
         }
         return profileRepository.save(existingProfile);
+    }
+
+    // Make a get method to get a profile by key cloak id
+    @Override
+    public Optional<Profile> findByUserKeycloakId(String keycloakId){
+
+        User user = userRepository.findByKeyCloakId(keycloakId).get();
+        return profileRepository.findById(user.getProfile().getId());
+
     }
 }

@@ -24,7 +24,7 @@ public class User {
     private String first_name;
     @Column(length = 50)
     private String last_name;
-    //@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Profile profile;
 
