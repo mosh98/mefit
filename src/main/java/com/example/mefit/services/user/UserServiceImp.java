@@ -5,6 +5,7 @@ import com.example.mefit.models.Goal;
 import com.example.mefit.models.Profile;
 import com.example.mefit.models.User;
 import com.example.mefit.repositories.AddressRepository;
+import com.example.mefit.repositories.GoalRepository;
 import com.example.mefit.repositories.ProfileRepository;
 import com.example.mefit.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public class UserServiceImp implements UserService{
     private final ProfileRepository profileRepository;
     private final AddressRepository addressRepository;
 
+    private final GoalRepository goalRepository;
+
 
     @Override
     public User findById(Integer id) {
@@ -34,6 +37,36 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User add(User entity) {
+        //TODO: before adding user chekc if any user exist with the same keycloak id
+        userRepository.findByKeyCloakId(entity.getKeyCloakId()).ifPresent(user -> {
+            throw new IllegalStateException("User exists with the same keycloak id");
+        });
+
+
+        //check if keycloak id is already in the database
+        Optional<User> user = userRepository.findByKeyCloakId(entity.getKeyCloakId());
+
+        if(user.isPresent()) {
+            
+            return user.get();
+
+        }
+
+
+        Profile profile = new Profile();
+
+        profile.setUser(entity);
+
+
+        profile.setAddress(new Address());
+        profile.getAddress().setProfile(profile);
+        entity.setProfile(profile);
+
+        profileRepository.save(entity.getProfile());
+        addressRepository.save(entity.getProfile().getAddress());
+
+
+
         return userRepository.save(entity);
     }
 

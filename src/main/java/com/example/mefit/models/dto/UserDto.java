@@ -9,7 +9,7 @@ public class UserDto {
     private String e_mail;
     private String first_name;
     private String last_name;
-    private int profile;
+    private Integer profile;
 
     private String userType;
 

@@ -56,6 +56,8 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     public Collection<UserDto> getAllUsers(){
 
+        //ArrayList<User> userArrayList = (ArrayList<User>) userService.findAll();
+
         return userMapper.userToUserDto(userService.findAll());
     }
 
@@ -80,14 +82,27 @@ public class UserController {
     @Operation(summary = "Create a new user")
     @ApiResponse(responseCode = "201", description = "User created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content)
+    @ApiResponse(responseCode = "409", description = "Conflict, use exist", content = @Content)
     @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     @PostMapping("/newUser")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public UserDto insertUser(@RequestBody UserDto userDto){
-        System.out.println("USER KEYCLOAK ID: " + userDto.getKeyCloakId());
-        User user = userService.add(userMapper.userDtoToUser(userDto));
+    public ResponseEntity<UserDto> insertUser(@RequestBody UserDto userDto){
+        //System.out.println("USER KEYCLOAK ID: " + userDto.getKeyCloakId());
+        //System.out.println("USER PROFILE ID" + userDto.getProfile());
 
-        return userMapper.userToUserDto(user);
+        User user = null;
+        try {
+
+            user = userService.add(userMapper.userDtoToUser(userDto));
+
+        }catch (Exception e){
+
+            System.out.println(e);
+            return new ResponseEntity<>( HttpStatus.CONFLICT);
+        }
+
+
+        return new ResponseEntity<UserDto>(userMapper.userToUserDto(user), HttpStatus.CREATED);
     }
 
 /*
@@ -223,4 +238,6 @@ public class UserController {
 
         return ResponseEntity.ok(userMapper.userToUserDto(user.get()));
     }
+
+
 }
