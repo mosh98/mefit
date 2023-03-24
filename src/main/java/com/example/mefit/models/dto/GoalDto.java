@@ -12,4 +12,7 @@ public class GoalDto {
     private boolean active;
     private int profile;
 
+    //private
+
+
 }
