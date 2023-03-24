@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -42,7 +43,7 @@ public class Goal {
     //Remove orphanRemoval = true  put does not work with this.
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Workout> workouts;
+    private List<Workout> workouts;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )

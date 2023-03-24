@@ -3,10 +3,12 @@ package com.example.mefit.controller;
 import com.example.mefit.mapper.GoalMapper;
 import com.example.mefit.models.Goal;
 import com.example.mefit.models.User;
+import com.example.mefit.models.dto.AddGoalDto;
 import com.example.mefit.models.dto.AddressDto;
 import com.example.mefit.models.dto.GoalDto;
 import com.example.mefit.models.dto.UserDto;
 import com.example.mefit.services.goal.GoalService;
+import com.example.mefit.services.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,6 +26,7 @@ import java.util.Collection;
 @CrossOrigin(origins = "http://localhost:3000")
 public class GoalController {
 
+    private final UserService userService;
     private final GoalService goalService;
     private final GoalMapper goalMapper;
 
@@ -68,7 +71,6 @@ public class GoalController {
             throw new RuntimeException("The id in the path must be the same as the id in the body");
         }
 
-
         Goal goal = goalService.update(goalMapper.goalDtoToGoal(goalDto));
 
         return goalMapper.goalToGoalDto(goal);
@@ -89,6 +91,19 @@ public class GoalController {
         Goal goal = goalMapper.goalDtoToGoal(goalDto);
 
         return goalMapper.goalToGoalDto(goalService.update(id,goal));
+    }
+
+    //add workout to goal
+    @Operation(summary = "Add workout to goal", description = "Add workout to goal, ")
+    @ApiResponse(responseCode = "200", description = "Workout added to goal")
+    @ApiResponse(responseCode = "404", description = "Goal not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @PatchMapping()
+    @RequestMapping(path = "/addWorkoutToGoal/",method = RequestMethod.PATCH)
+    public GoalDto addWorkoutToGoal(@RequestBody AddGoalDto addGoalDto){
+
+        return goalMapper.goalToGoalDto(goalService.addWorkoutsToGoal(addGoalDto));
     }
 
 }
