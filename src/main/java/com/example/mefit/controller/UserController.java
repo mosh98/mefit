@@ -239,5 +239,6 @@ public class UserController {
         return ResponseEntity.ok(userMapper.userToUserDto(user.get()));
     }
 
+    //TODO: update goal by user keycloak id or user id
 
 }

@@ -21,7 +21,7 @@ public interface WorkoutMapper {
 
     @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
     @Mapping(target="goal", source="goal.id")
-    @Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
+    //@Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
     WorkoutDTO workoutToWorkoutDto(Workout workout);
 
     @Named("programConverter")
@@ -69,7 +69,8 @@ public interface WorkoutMapper {
             @Mapping(target = "completed", source = "workoutDTO.completed"),
             @Mapping(target = "programs", ignore = true),
             @Mapping(target = "goal", source = "workoutDTO.goal", qualifiedByName = "goalConverter"),
-            @Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
+            //@Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
+            //@Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
     })
     Workout workoutDtoToWorkout(WorkoutDTO workoutDTO, @Context WorkoutService workoutService, @Context ExcerciseService exerciseService, @Context GoalService goalService);
 
