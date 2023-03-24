@@ -101,7 +101,6 @@ public class GoalServiceImp implements GoalService {
         List<Workout> workouts = new ArrayList<>();
 
         //convert workout id to workout object
-
         for (Integer workoutId : addGoalDto.getWorkouts()) {
 
             workouts.add(workoutService.findById(workoutId));
@@ -111,14 +110,16 @@ public class GoalServiceImp implements GoalService {
         goal.setWorkouts(workouts);
 
         //save goal
-
         //loop through goal workouts
         for (Workout workout : goal.getWorkouts()) {
             //set goal in workout
             workout.setGoal(goal);
 
+            //for each workout
             //save workout
             workoutService.save(workout);
+
+
         }
 
         goalRepository.save(goal);

@@ -1,8 +1,10 @@
 package com.example.mefit.models.dto;
 
+import com.example.mefit.models.Workout;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class GoalDto {
@@ -11,6 +13,8 @@ public class GoalDto {
     private boolean achieved;
     private boolean active;
     private int profile;
+
+    private List<Workout> workouts;
 
     //private
 
