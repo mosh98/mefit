@@ -37,6 +37,17 @@ public class Workout {
     @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
     private Goal goal;
 
+//    private String workoutCategory;
+//skapa workouts med olika categorier: BUILD & LOSE
+
+
+    //TODO: experience level
+    @Column(length = 100)
+   private String experienceLevel;
+
+
+
+
 }
 
 

@@ -19,4 +19,6 @@ public class WorkoutDTO {
 
     private int goal; //goal id
 
+    private String experienceLevel;
+
 }
