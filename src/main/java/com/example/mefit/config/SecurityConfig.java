@@ -30,9 +30,11 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/public")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll() // Add this line
+                        .requestMatchers(new AntPathRequestMatcher("/workouts/**")).permitAll() // Add this line
+
                         // Modify access control for /users and /workouts
                         .requestMatchers(new AntPathRequestMatcher("/users/**")).hasRole("USER")
-                        .requestMatchers(new AntPathRequestMatcher("/workouts/**")).hasRole("USER")
+                        //.requestMatchers(new AntPathRequestMatcher("/workouts/**")).hasRole("USER")
                         .requestMatchers(new AntPathRequestMatcher("/exercises/newExercise/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/exercises/updateExercise/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/exercises/deleteExercise/**")).hasRole("ADMIN")
