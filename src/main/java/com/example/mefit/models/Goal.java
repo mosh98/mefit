@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
 @Getter
@@ -22,8 +20,8 @@ public class Goal {
     @Column(name = "goal_id")
     private int id;
 
-    @Column(length = 225)
-    private Date endDate;
+    @Column(length = 200)
+    private String endDate;
 
     @Column(name="achieved", nullable = false, columnDefinition = "boolean default false")
     private boolean achieved;
