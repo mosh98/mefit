@@ -87,6 +87,7 @@ public class GoalServiceImp implements GoalService {
             int day = currentDate.getDayOfMonth()+7;
             String dateInString = year + "-" + month + "-" + day;
             goal.setEndDate(dateInString);
+            goal.setActive(true);
 
 
             goal.setProfile(profile);
