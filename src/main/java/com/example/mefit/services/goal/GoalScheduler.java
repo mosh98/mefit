@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,20 +21,23 @@ public class GoalScheduler {
         this.goalRepository = goalRepository;
     }
 
-    //TODO: compare current date(day,month year) with goal end date in the same format
 
     @Scheduled(cron = "0 0 0 * * *") // run at midnight every day
     public void updateActiveGoals() {
-        Date now = new Date();
-        //now.getDay();
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+        int day = currentDate.getDayOfMonth()+7;
+        String dateInString = year + "-" + month + "-" + day;
+
         List<Goal> goals = goalRepository.findByActiveIsTrue();
-/*        for (Goal goal : goals) {
-            Date goalEndDate = goal.getEndDate();
-            if(goalEndDate.compareTo(now) == 0){
+
+        for (Goal goal : goals) {
+            if (goal.getEndDate().equals(dateInString)) {
                 goal.setActive(false);
+                goalRepository.save(goal);
             }
 
-            goalRepository.save(goal);
-        }*/
+        }
     }
 }
