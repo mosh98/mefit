@@ -6,11 +6,13 @@ import com.example.mefit.models.Profile;
 import com.example.mefit.models.Workout;
 import com.example.mefit.models.dto.AddGoalDto;
 import com.example.mefit.repositories.GoalRepository;
+import com.example.mefit.repositories.ProfileRepository;
 import com.example.mefit.services.profile.ProfileService;
 import com.example.mefit.services.workout.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,9 +24,13 @@ public class GoalServiceImp implements GoalService {
     private GoalRepository goalRepository;
 
     @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
     private ProfileService profileService;
 
 
+     @Autowired
     private WorkoutService workoutService;
 
     @Override
@@ -71,14 +77,33 @@ public class GoalServiceImp implements GoalService {
         //get user profile using keycloak id
 
         //get goal from profile
+        if (profile.getGoal() == null) {
+            Goal goal = new Goal();
+
+            //set end date for goal
+            LocalDate currentDate = LocalDate.now();
+            int year = currentDate.getYear();
+            int month = currentDate.getMonthValue();
+            int day = currentDate.getDayOfMonth()+7;
+            String dateInString = year + "-" + month + "-" + day;
+            goal.setEndDate(dateInString);
+            goal.setActive(true);
+
+
+            goal.setProfile(profile);
+            goalRepository.save(goal);
+            profile.setGoal(goal);
+            profileRepository.save(profile);
+
+        }
         Goal goal = profile.getGoal();
 
         //find workout object from list
         List<Workout> workouts = new ArrayList<>();
 
         //convert workout id to workout object
-
         for (Integer workoutId : addGoalDto.getWorkouts()) {
+
             workouts.add(workoutService.findById(workoutId));
         }
 
@@ -86,14 +111,16 @@ public class GoalServiceImp implements GoalService {
         goal.setWorkouts(workouts);
 
         //save goal
-
         //loop through goal workouts
         for (Workout workout : goal.getWorkouts()) {
             //set goal in workout
             workout.setGoal(goal);
 
+            //for each workout
             //save workout
             workoutService.save(workout);
+
+
         }
 
         goalRepository.save(goal);

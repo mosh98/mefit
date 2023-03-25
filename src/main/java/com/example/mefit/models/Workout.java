@@ -1,4 +1,5 @@
 package com.example.mefit.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class Workout {
 
     @ManyToOne
     @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
+    @JsonIgnore
     private Goal goal;
 
 //    private String workoutCategory;
