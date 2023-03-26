@@ -39,9 +39,13 @@ public class Goal {
      * that are no longer associated with a Goal entity should be removed from the database
      */
     //Remove orphanRemoval = true  put does not work with this.
-    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
+/*    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Workout> workouts;*/
+    @ManyToMany(mappedBy = "goals")
     @JsonIgnore
     private List<Workout> workouts;
+
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )

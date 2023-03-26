@@ -108,19 +108,7 @@ public class WorkoutController {
             return program;
     }
 
-    //get goal by workout id
-    @Operation(summary = "Get goal by workout id", description = "Get goal by workout id")
-    @GetMapping
-    @RequestMapping(path = "/goalByWorkoutId/{id}",method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public Goal getGoalByWorkoutId(@PathVariable Integer id){
 
-        //TODO: convert goal to dto
-
-        Goal goal = workoutService.getWorkoutGoal(id);
-
-        return goal;
-    }
 
     //POST workout
     @Operation(summary = "Create workout", description = "Create workout")

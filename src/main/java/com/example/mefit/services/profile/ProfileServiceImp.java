@@ -79,6 +79,7 @@ public class ProfileServiceImp implements ProfileService {
     public Optional<Profile> findByUserKeycloakId(String keycloakId){
 
         User user = userRepository.findByKeyCloakId(keycloakId).get();
+        System.out.print(user.getProfile());
         return profileRepository.findById(user.getProfile().getId());
 
     }
