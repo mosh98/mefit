@@ -17,7 +17,8 @@ public class WorkoutDTO {
 
     private Set<Exercise> exercises; //excercise ids as a set
 
-    private int goal; //goal id
+    //private int goal; //goal id
+    private Set<Integer> goals; //goal ids as a set
 
     private String experienceLevel;
 

@@ -20,10 +20,18 @@ public interface WorkoutMapper {
     //--------------WORKOUT --> workoutDTO Mapping----------------
 
     @Mapping(target = "programs", source = "programs", qualifiedByName = "programConverter")
-    @Mapping(target="goal", source="goal.id")
+    @Mapping(target="goals", source="goals", qualifiedByName = "goalConverterToInteger")
     //@Mapping(target="exercises", source="exercises", qualifiedByName = "exerciseConverter")
     WorkoutDTO workoutToWorkoutDto(Workout workout);
 
+    @Named("goalConverterToInteger")
+    default Set<Integer> goalConverterToInteger(Set<Goal> goals){
+        //check if goals is null then return empty set
+        if(goals == null){
+            return new HashSet<>();
+        }
+        return goals.stream().map(Goal::getId).collect(Collectors.toSet());
+    }
     @Named("programConverter")
     default Set<Integer> programConverter(Set<Program> programs){
         //check if programs is null then return empty set
@@ -68,7 +76,7 @@ public interface WorkoutMapper {
             @Mapping(target = "type", source = "workoutDTO.type"),
             @Mapping(target = "completed", source = "workoutDTO.completed"),
             @Mapping(target = "programs", ignore = true),
-            @Mapping(target = "goal", source = "workoutDTO.goal", qualifiedByName = "goalConverter"),
+            @Mapping(target = "goals", source = "workoutDTO.goals", ignore = true ),
             //@Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
             //@Mapping(target = "exercises", source = "workoutDTO.exercises", qualifiedByName = "exerciseConverterFromDto")
     })
@@ -83,14 +91,17 @@ public interface WorkoutMapper {
         return exercises.stream().map(exerciseService::findById).collect(Collectors.toSet());
     }
 
-    @Named("goalConverter")
-    default Goal goalConverter(int goalId, @Context GoalService goalService){
+/*    @Named("goalConverter")
+    default Set<Goal> goalConverter(int goalId, @Context GoalService goalService){
         //find wrokout by id
 
         //from that workout get the goal object
-
+        if (goalService.findById(goalId) == null){
+            return null;
+        }
+        return goalService.findById(goalId).getGoals();
         return goalService.findById(goalId);
-    }
+    }*/
 
 
 
