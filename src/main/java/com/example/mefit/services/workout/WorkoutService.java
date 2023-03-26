@@ -26,4 +26,7 @@ public interface WorkoutService {
 
 
     Workout update (Integer id, Workout workout);
+
+
+
 }

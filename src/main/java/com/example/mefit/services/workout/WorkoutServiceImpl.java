@@ -35,6 +35,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public Workout save(Workout workout) {
 
+        //TODO: save the exercises
+
+
+
         return workoutRepository.save(workout);
     }
 
@@ -88,6 +92,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         return workoutRepository.save(existingWorkout);
 
     }
+
+
 
 
 }

@@ -106,6 +106,8 @@ public class GoalController {
         return goalMapper.goalToGoalDto(goalService.addWorkoutsToGoal(keyCloakId,addGoalDto));
     }
 
+    //return workout stats
+
     
 
 }
