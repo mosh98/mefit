@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findById(Integer id);
 
 
+    //Optional<User> findByKeyCloakId(String keyCloakId);
     Optional<User> findByKeyCloakId(String keyCloakId);
 
 

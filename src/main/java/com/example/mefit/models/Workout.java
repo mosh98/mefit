@@ -34,13 +34,19 @@ public class Workout {
     @OneToMany(mappedBy = "workout")
     private Set<Exercise> exercises;
 
-    @ManyToOne
+  /*  @ManyToOne
     @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
     @JsonIgnore
-    private Goal goal;
+    private Goal goal;*/
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "workout_goal",
+          joinColumns = @JoinColumn(name = "workout_id"),
+          inverseJoinColumns = @JoinColumn(name = "goal_id"))
+  @JsonIgnore
+  private Set<Goal> goals;
 
-//    private String workoutCategory;
-//skapa workouts med olika categorier: BUILD & LOSE
+
 
 
     //TODO: experience level

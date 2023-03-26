@@ -68,15 +68,6 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public Goal getWorkoutGoal(Integer id) {
-        Optional<Workout> workoutObject =  workoutRepository.findById(id);
-        if(workoutObject.isPresent()){
-            Workout workout = workoutObject.get();
-            return workout.getGoal();
-        }
-        return null;
-    }
-    @Override
     public Workout update(Integer id, Workout workout ){
         //old workout
         Workout existingWorkout = workoutRepository.findById(id).get();

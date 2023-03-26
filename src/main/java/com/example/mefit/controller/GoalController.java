@@ -100,10 +100,12 @@ public class GoalController {
     @ApiResponse(responseCode = "400", description = "Invalid input")
     @ApiResponse(responseCode = "500", description = "Internal server error")
     @PatchMapping()
-    @RequestMapping(path = "/addWorkoutToGoal/",method = RequestMethod.PATCH)
-    public GoalDto addWorkoutToGoal(@RequestBody AddGoalDto addGoalDto){
+    @RequestMapping(path = "/addWorkoutToGoal/{keyCloakId}",method = RequestMethod.PATCH)
+    public GoalDto addWorkoutToGoal(@PathVariable String keyCloakId, @RequestBody AddGoalDto addGoalDto){
 
-        return goalMapper.goalToGoalDto(goalService.addWorkoutsToGoal(addGoalDto));
+        return goalMapper.goalToGoalDto(goalService.addWorkoutsToGoal(keyCloakId,addGoalDto));
     }
+
+    
 
 }

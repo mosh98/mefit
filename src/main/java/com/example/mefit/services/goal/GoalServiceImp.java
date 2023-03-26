@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -70,10 +71,10 @@ public class GoalServiceImp implements GoalService {
     }
 
     @Override
-    public Goal addWorkoutsToGoal(AddGoalDto addGoalDto) {
+    public Goal addWorkoutsToGoal(String keyCloakId, AddGoalDto addGoalDto) {
 
         //get User using keycloakId
-        Profile profile = profileService.findByUserKeycloakId(addGoalDto.getKeyCloakId()).get();
+        Profile profile = profileService.findByUserKeycloakId(keyCloakId).get();
         //get user profile using keycloak id
 
         //get goal from profile
@@ -100,7 +101,6 @@ public class GoalServiceImp implements GoalService {
 
         //find workout object from list
         List<Workout> workouts = new ArrayList<>();
-
         //convert workout id to workout object
         for (Integer workoutId : addGoalDto.getWorkouts()) {
 
@@ -108,19 +108,23 @@ public class GoalServiceImp implements GoalService {
         }
 
         //add workouts to goal
-        goal.setWorkouts(workouts);
+        if (goal.getWorkouts() == null){
+            goal.setWorkouts(new ArrayList<>());
+            goal.getWorkouts().addAll(workouts);
+        }else {
+            goal.getWorkouts().addAll(workouts);
+        }
 
         //save goal
         //loop through goal workouts
-        for (Workout workout : goal.getWorkouts()) {
+        for (Workout workout : workouts) {
+            if (workout.getGoals() == null)
+                workout.setGoals(new HashSet<Goal>());
             //set goal in workout
-            workout.setGoal(goal);
+            workout.getGoals().add(goal);
 
-            //for each workout
             //save workout
             workoutService.save(workout);
-
-
         }
 
         goalRepository.save(goal);
