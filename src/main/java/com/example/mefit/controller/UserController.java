@@ -218,8 +218,6 @@ public class UserController {
               }
     }
 
-
-
     //get user by keycloak id
     @Operation(summary = "Get user by keycloak id", description = "Returns a user from the system by keycloak id")
     @ApiResponses(value = {
