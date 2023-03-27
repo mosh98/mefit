@@ -16,9 +16,9 @@ INSERT INTO program (name, category) VALUES ('Program 2', 'Category 2');
 --INSERT INTO goal ( profile_id, end_date )VALUES ( 1, TO_DATE('03/22/2023', 'mm/dd/yyyy'));
 
 
-INSERT INTO workout (name, type,experience_level ) VALUES ('Chest Blaster', 'Chest', 'Beginner');
-INSERT INTO workout (name, type,experience_level ) VALUES ('Chest Blaster', 'Chest', 'Intermediate');
-INSERT INTO workout (name, type,experience_level ) VALUES ('Chest Blaster', 'Chest', 'Expert');
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Chest Blaster', 'Chest', 'Beginner',false);
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Chest Blaster', 'Chest', 'Intermediate',false);
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Chest Blaster', 'Chest', 'Expert',false);
 
 INSERT INTO exercise(name, description, muscle_group, user_experience, workout_id, sets, reps)
 VALUES ('Push-ups', 'A classic bodyweight exercise that works the chest, shoulders, and triceps.', 'Chest', 'Beginner', 1, 3, 10),
@@ -36,9 +36,9 @@ VALUES ('Weighted Dips', 'A compound exercise that works the chest, shoulders, a
        ('Dumbbell Pullover', 'An isolation exercise that targets the chest and back muscles using a dumbbell.', 'Chest', 'Expert', 3, 4, 10);
 
 
-INSERT INTO workout (name, type,experience_level) VALUES ('Back buster', 'Back', 'Intermediate');
-INSERT INTO workout (name, type,experience_level) VALUES ('Back buster', 'Back', 'Beginner');
-INSERT INTO workout (name, type,experience_level) VALUES ('Back buster', 'Back', 'Expert');
+INSERT INTO workout (name, type,experience_level, completed) VALUES ('Back buster', 'Back', 'Intermediate',false);
+INSERT INTO workout (name, type,experience_level,completed) VALUES ('Back buster', 'Back', 'Beginner',false);
+INSERT INTO workout (name, type,experience_level,completed) VALUES ('Back buster', 'Back', 'Expert',false);
 
 INSERT INTO exercise(name, description, muscle_group, user_experience, workout_id, sets, reps)
 VALUES ('Bent-Over Barbell Rows', 'A compound exercise that targets the upper and lower back muscles using a barbell.', 'Back', 'Beginner', 4, 3, 10),
@@ -56,9 +56,9 @@ VALUES ('Deadlift', 'A compound exercise that targets the entire back, hamstring
        ('Barbell Row', 'A compound exercise that targets the upper and mid-back muscles using a barbell.', 'Back', 'Expert', 6, 4, 8);
 
 
-INSERT INTO workout (name, type,experience_level) VALUES ('Legs smasher', 'Legs', 'Beginner');
-INSERT INTO workout (name, type,experience_level) VALUES ('Legs smasher', 'Legs', 'Intermediate');
-INSERT INTO workout (name, type,experience_level) VALUES ('Legs smasher', 'Legs', 'Expert');
+INSERT INTO workout (name, type,experience_level,completed) VALUES ('Legs smasher', 'Legs', 'Beginner',false);
+INSERT INTO workout (name, type,experience_level,completed) VALUES ('Legs smasher', 'Legs', 'Intermediate',false);
+INSERT INTO workout (name, type,experience_level,completed) VALUES ('Legs smasher', 'Legs', 'Expert',false);
 
 INSERT INTO exercise(name, description, muscle_group, user_experience, workout_id, sets, reps)
 VALUES ('Squats', 'A compound exercise that targets the quads, hamstrings, and glutes using a barbell.', 'Legs', 'Beginner', 7, 3, 10),
@@ -75,9 +75,9 @@ VALUES ('Barbell Lunges', 'An isolation exercise that targets the quads, hamstri
        ('Front Squats', 'A variation of the barbell squat that places more emphasis on the quads.', 'Legs', 'Expert', 9, 4, 6),
        ('Hack Squats', 'A compound exercise that targets the quads, hamstrings, and glutes using a hack squat machine or a barbell.', 'Legs', 'Expert', 9, 4, 8);
 
-INSERT INTO workout (name, type,experience_level ) VALUES ('Boulder Shoulders', 'Shoulders', 'Beginner');
-INSERT INTO workout (name, type,experience_level ) VALUES ('Boulder Shoulders', 'Shoulders', 'Intermediate');
-INSERT INTO workout (name, type,experience_level ) VALUES ('Boulder Shoulders', 'Shoulders', 'Expert');
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Boulder Shoulders', 'Shoulders', 'Beginner',false);
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Boulder Shoulders', 'Shoulders', 'Intermediate',false);
+INSERT INTO workout (name, type,experience_level,completed ) VALUES ('Boulder Shoulders', 'Shoulders', 'Expert',false);
 
 INSERT INTO exercise(name, description, muscle_group, user_experience, workout_id, sets, reps)
 VALUES ('Dumbbell Shoulder Press', 'A compound exercise that targets the shoulders using dumbbells.', 'Shoulders', 'Beginner', 10, 3, 10),
@@ -96,9 +96,9 @@ VALUES ('Push Press', 'A compound exercise that targets the shoulders, triceps, 
 
 
 
-INSERT INTO workout (name, type, experience_level ) VALUES ('Abs & Core', 'Shoulders', 'Beginner');
-INSERT INTO workout (name, type, experience_level ) VALUES ('Abs & Core', 'Shoulders', 'Intermediate');
-INSERT INTO workout (name, type, experience_level ) VALUES ('Abs & Core', 'Shoulders', 'Expert');
+INSERT INTO workout (name, type, experience_level,completed ) VALUES ('Abs & Core', 'Shoulders', 'Beginner',false);
+INSERT INTO workout (name, type, experience_level,completed ) VALUES ('Abs & Core', 'Shoulders', 'Intermediate',false);
+INSERT INTO workout (name, type, experience_level,completed ) VALUES ('Abs & Core', 'Shoulders', 'Expert',false);
 
 INSERT INTO exercise(name, description, muscle_group, user_experience, workout_id, sets, reps)
 VALUES ('Crunches', 'An isolation exercise that targets the rectus abdominis using bodyweight.', 'Abs & Core', 'Beginner', 13, 3, 15),
