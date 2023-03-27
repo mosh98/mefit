@@ -34,6 +34,7 @@ public class SecurityConfig {
 
                         // Modify access control for /users and /workouts
                         .requestMatchers(new AntPathRequestMatcher("/users/**")).hasRole("USER")
+                        .requestMatchers(new AntPathRequestMatcher("/goal/**")).hasRole("USER")
                         //.requestMatchers(new AntPathRequestMatcher("/workouts/**")).hasRole("USER")
                         .requestMatchers(new AntPathRequestMatcher("/exercises/newExercise/**")).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/exercises/updateExercise/**")).hasRole("ADMIN")
