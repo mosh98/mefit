@@ -11,4 +11,8 @@ public interface GoalService extends CrudService<Goal, Integer> {
     Goal update(Integer id, Goal goal);
 
     Goal addWorkoutsToGoal(String keyCloakId,AddGoalDto addGoalDto);
+
+    Goal completeWorkout(String keyCloakId, Integer workoutId);
+
+
 }

@@ -1,7 +1,10 @@
-package com.example.mefit.models;
+package com.example.mefit.models.dto;
+
+import lombok.Data;
 
 import java.util.HashMap;
 
+@Data
 public class WorkoutStatsDTO {
 
     /**
@@ -10,7 +13,7 @@ public class WorkoutStatsDTO {
 
     private Integer remainingWorkouts;
 
-    private Integer CompletedWorkouts;
+    private Integer completedWorkouts;
 
     private Integer totalWorkouts;
     private HashMap<String,Integer> muscleGroupStats;

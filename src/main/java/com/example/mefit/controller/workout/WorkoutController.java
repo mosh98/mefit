@@ -37,7 +37,6 @@ public class WorkoutController {
     //instiantiation of ExcersiceService
     private final ExcerciseService exerciseService;
 
-
     //instiantiation of goalService
     private final GoalService goalService;
 
@@ -149,6 +148,8 @@ public class WorkoutController {
           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }
     }
+
+
 
 
 

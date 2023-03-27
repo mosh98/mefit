@@ -135,6 +135,39 @@ public class GoalServiceImp implements GoalService {
     }
 
     @Override
+    public Goal completeWorkout(String keyCloakId, Integer workoutId) {
+        //find profile by keycloak id
+        Profile profile = profileService.findByUserKeycloakId(keyCloakId).get();
+        //get goal from profile
+        Goal goal = profile.getGoal();
+
+        //get workout list from goal.
+        List<Workout> workouts = goal.getWorkouts();
+
+        //find the workout object with workout id
+        for (Workout workout : workouts) {
+            if(Integer.valueOf(workout.getId()).equals(workoutId)){
+
+                workout.setCompleted(true);
+
+                //save goal
+                goalRepository.save(goal);
+
+                //save workout
+                workoutService.save(workout);
+                //return goal
+                return goal;
+            }
+        }
+
+
+
+        return goal;
+    }
+
+
+
+    @Override
     public void deleteById(Integer id) {
         goalRepository.deleteById(id);
     }
