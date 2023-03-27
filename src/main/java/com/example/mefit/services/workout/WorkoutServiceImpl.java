@@ -48,7 +48,8 @@ public class WorkoutServiceImpl implements WorkoutService {
         //loop through each exercise and set the workout
         for(Exercise exercise: exercises){
             exercise.setWorkout(workout);
-            exerciseRepository.save(exercise);
+
+            //exerciseRepository.save(exercise);
         }
 
         return workoutRepository.save(workout);
