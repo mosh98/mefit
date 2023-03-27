@@ -7,6 +7,7 @@ import com.example.mefit.models.dto.*;
 import com.example.mefit.services.goal.GoalService;
 import com.example.mefit.services.user.UserService;
 import com.example.mefit.services.workout.WorkoutService;
+import com.example.mefit.services.workout.WorkoutServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,6 +30,8 @@ public class GoalController {
     private final GoalMapper goalMapper;
 
     private final WorkoutService workoutService;
+
+    private final WorkoutServiceImpl workoutServiceImpl;
 
     //Make a get method to get all goals
     @Operation(summary = "Get all goals", description = "Returns a list of all goals in the system")
@@ -117,7 +120,7 @@ public class GoalController {
     public WorkoutStatsDTO getWorkoutStats(@PathVariable String keyCloakId) {
          //workoutService
 
-        return null;
+        return workoutServiceImpl.getWorkoutStats(keyCloakId);
 
     }
 
