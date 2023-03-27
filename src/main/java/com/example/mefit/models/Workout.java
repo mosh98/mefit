@@ -34,10 +34,6 @@ public class Workout {
     @OneToMany(mappedBy = "workout")
     private Set<Exercise> exercises;
 
-  /*  @ManyToOne
-    @JoinColumn(name = "goal_id",referencedColumnName = "goal_id")
-    @JsonIgnore
-    private Goal goal;*/
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
           name = "workout_goal",

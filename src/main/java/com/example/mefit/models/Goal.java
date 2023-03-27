@@ -49,6 +49,7 @@ public class Goal {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="profile_id", referencedColumnName = "profile_id" )
+    @JsonIgnore
     private  Profile profile;
 
 

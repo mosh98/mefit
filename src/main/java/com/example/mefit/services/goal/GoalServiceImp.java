@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GoalServiceImp implements GoalService {
@@ -93,14 +90,17 @@ public class GoalServiceImp implements GoalService {
 
             goal.setProfile(profile);
             goalRepository.save(goal);
+
             profile.setGoal(goal);
             profileRepository.save(profile);
 
         }
+
         Goal goal = profile.getGoal();
 
         //find workout object from list
         List<Workout> workouts = new ArrayList<>();
+
         //convert workout id to workout object
         for (Integer workoutId : addGoalDto.getWorkouts()) {
 
@@ -134,8 +134,12 @@ public class GoalServiceImp implements GoalService {
 
     }
 
+    //complete workout
+
+
     @Override
     public Goal completeWorkout(String keyCloakId, Integer workoutId) {
+
         //find profile by keycloak id
         Profile profile = profileService.findByUserKeycloakId(keyCloakId).get();
         //get goal from profile
@@ -144,28 +148,24 @@ public class GoalServiceImp implements GoalService {
         //get workout list from goal.
         List<Workout> workouts = goal.getWorkouts();
 
+        System.out.println("initial workout list:"+workouts);
+
         //find the workout object with workout id
         for (Workout workout : workouts) {
             if(Integer.valueOf(workout.getId()).equals(workoutId)){
+                System.out.println("Workout found: "+workout.toString());
 
                 workout.setCompleted(true);
-
-                //save goal
-                goalRepository.save(goal);
-
-                //save workout
                 workoutService.save(workout);
-                //return goal
-                return goal;
+
             }
         }
 
-
+        goal.setWorkouts(workouts);
+        goalRepository.save(goal);
 
         return goal;
     }
-
-
 
     @Override
     public void deleteById(Integer id) {
