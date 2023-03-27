@@ -1,10 +1,10 @@
 package com.example.mefit.services.workout;
 
-import com.example.mefit.models.Exercise;
-import com.example.mefit.models.Goal;
-import com.example.mefit.models.Program;
-import com.example.mefit.models.Workout;
+import com.example.mefit.models.*;
+import com.example.mefit.models.dto.WorkoutStatsDTO;
+import com.example.mefit.repositories.ExcerciseRepository;
 import com.example.mefit.repositories.WorkoutRepository;
+import com.example.mefit.services.profile.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,10 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     // instantiate workoutRepository
     private final WorkoutRepository workoutRepository;
+
+    private final ExcerciseRepository exerciseRepository;
+
+    private final ProfileService profileService;
 
     @Override
     public List<Workout> findAll() {
@@ -35,9 +39,16 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public Workout save(Workout workout) {
 
-        //TODO: save the exercises
+        //DONE: save the exercises
+        workout.setCompleted(false);
 
-
+        //get exercises from workout
+        Set<Exercise> exercises = workout.getExercises();
+        //loop through each exercise and set the workout
+        for(Exercise exercise: exercises){
+            exercise.setWorkout(workout);
+            exerciseRepository.save(exercise);
+        }
 
         return workoutRepository.save(workout);
     }
@@ -93,7 +104,24 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     }
 
+    public WorkoutStatsDTO getWorkoutStats(String keyClockId){
+        //get profile by keyclock id
+        Profile profile = profileService.findByUserKeycloakId(keyClockId).get();
 
+        WorkoutStatsDTO workoutStatsDTO = new WorkoutStatsDTO();
+
+
+
+        //get all workouts
+        Goal profileGoal = profile.getGoal();
+
+        //get all workout from that goal
+
+
+        //calculate the stats
+
+        return null;
+    }
 
 
 }

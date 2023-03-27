@@ -31,7 +31,7 @@ public class GoalScheduler {
         LocalDate currentDate = LocalDate.now();
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
-        int day = currentDate.getDayOfMonth()+7;
+        int day = currentDate.getDayOfMonth();
         String dateInString = year + "-" + month + "-" + day;
 
         List<Goal> goals = goalRepository.findByActiveIsTrue();

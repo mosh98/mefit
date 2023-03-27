@@ -3,12 +3,10 @@ package com.example.mefit.controller;
 import com.example.mefit.mapper.GoalMapper;
 import com.example.mefit.models.Goal;
 import com.example.mefit.models.User;
-import com.example.mefit.models.dto.AddGoalDto;
-import com.example.mefit.models.dto.AddressDto;
-import com.example.mefit.models.dto.GoalDto;
-import com.example.mefit.models.dto.UserDto;
+import com.example.mefit.models.dto.*;
 import com.example.mefit.services.goal.GoalService;
 import com.example.mefit.services.user.UserService;
+import com.example.mefit.services.workout.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,6 +27,8 @@ public class GoalController {
     private final UserService userService;
     private final GoalService goalService;
     private final GoalMapper goalMapper;
+
+    private final WorkoutService workoutService;
 
     //Make a get method to get all goals
     @Operation(summary = "Get all goals", description = "Returns a list of all goals in the system")
@@ -107,6 +107,32 @@ public class GoalController {
     }
 
     //return workout stats
+    @Operation(summary = "Get workout stats", description = "Get workout stats")
+    @ApiResponse(responseCode = "200", description = "Workout stats retrieved")
+    @ApiResponse(responseCode = "404", description = "Goal not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @GetMapping("/workoutStats/{keyCloakId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public WorkoutStatsDTO getWorkoutStats(@PathVariable String keyCloakId) {
+         //workoutService
+
+        return null;
+
+    }
+
+    // update workout by user keycload id
+    @Operation(summary = "Complete workout by user keycloak id", description = "Update workout by user keycloak id")
+    @ApiResponse(responseCode = "200", description = "Workout updated")
+    @ApiResponse(responseCode = "404", description = "Workout not found")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+    @PatchMapping()
+    @RequestMapping(path = "/updateWorkout/{keyCloakId}/{workoutId}",method = RequestMethod.PATCH)
+    public Goal updateWorkout(@PathVariable String keyCloakId, @PathVariable Integer workoutId){
+
+        return goalService.completeWorkout(keyCloakId,workoutId);
+    }
 
     
 
