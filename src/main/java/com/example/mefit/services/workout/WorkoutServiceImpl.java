@@ -8,6 +8,7 @@ import com.example.mefit.services.profile.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -104,24 +105,61 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     }
 
-    public WorkoutStatsDTO getWorkoutStats(String keyClockId){
+    public WorkoutStatsDTO getWorkoutStats(String keyClockId) {
         //get profile by keyclock id
         Profile profile = profileService.findByUserKeycloakId(keyClockId).get();
 
         WorkoutStatsDTO workoutStatsDTO = new WorkoutStatsDTO();
 
 
-
         //get all workouts
         Goal profileGoal = profile.getGoal();
 
         //get all workout from that goal
+        List<Workout> workouts = profileGoal.getWorkouts();
+
+        int remainingWorkouts = 0;
+        int totalWorkouts = workouts.size();
+        int completedWorkouts = 0;
+
+        HashMap<String, Integer> muscleGroupStats = new HashMap<>();
 
 
-        //calculate the stats
+        //loop through each workout and get the stats
+        for (Workout workout : workouts) {
 
-        return null;
-    }
+
+            //get the exercises
+
+            if (workout.isCompleted() == true) {
+                completedWorkouts++;
+
+                //for each exercise get the muscle group
+                for (Exercise exercise : workout.getExercises()) {
+                    //get the muscle group
+                    String muscleGroup = exercise.getMuscleGroup();
+                    //check if the muscle group is in the map
+                    if (muscleGroupStats.containsKey(muscleGroup)) {
+                        //if it is then increment the value
+                        muscleGroupStats.put(muscleGroup, muscleGroupStats.get(muscleGroup) + 1);
+                    } else {
+                        //if it is not then add it to the map
+                        muscleGroupStats.put(muscleGroup, 1);
+                    }
+                }
+
+            }
+
+        }
+            //set the stats
+            workoutStatsDTO.setRemainingWorkouts(totalWorkouts - completedWorkouts);
+            workoutStatsDTO.setCompletedWorkouts(completedWorkouts);
+            workoutStatsDTO.setTotalWorkouts(totalWorkouts);
+            workoutStatsDTO.setMuscleGroupStats(muscleGroupStats);
+
+            return workoutStatsDTO;
+        }
+
 
 
 }
