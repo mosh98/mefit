@@ -22,7 +22,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/addresses")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://mefit-f-git-master-mosh98.vercel.app"})
 public class AddressController {
 
     private final AddressService addressService;
@@ -55,36 +55,36 @@ public class AddressController {
     public AddressDto getAddressById(@PathVariable Integer id) {
         return addressMapper.addressToAddressDto(addressService.findById(id));
     }
-/*
-    // Make a put method to update an address
-    @Operation(summary = "Update an address by id", description = "Updates an existing address in the system by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Address updated successfully",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AddressDto.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid input or validation error",
-                    content = {@Content}),
-            @ApiResponse(responseCode = "404", description = "Address not found",
-                    content = {@Content}),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = {@Content})
-    })
-    @PutMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public AddressDto updateAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
+    /*
+        // Make a put method to update an address
+        @Operation(summary = "Update an address by id", description = "Updates an existing address in the system by ID")
+        @ApiResponses(value = {
+                @ApiResponse(responseCode = "200", description = "Address updated successfully",
+                        content = {@Content(mediaType = "application/json", schema = @Schema(implementation = AddressDto.class))}),
+                @ApiResponse(responseCode = "400", description = "Invalid input or validation error",
+                        content = {@Content}),
+                @ApiResponse(responseCode = "404", description = "Address not found",
+                        content = {@Content}),
+                @ApiResponse(responseCode = "500", description = "Internal server error",
+                        content = {@Content})
+        })
+        @PutMapping("/{id}")
+        @ResponseStatus(value = HttpStatus.OK)
+        public AddressDto updateAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
 
-        if (!addressService.exists(id)) {
-            throw new RuntimeException("The address with id " + id + " does not exist");
+            if (!addressService.exists(id)) {
+                throw new RuntimeException("The address with id " + id + " does not exist");
+            }
+            if (!id.equals(addressDto.getId())) {
+                throw new RuntimeException("The id in the path must be the same as the id in the body");
+            }
+
+            Address address = addressService.update(addressMapper.addressDtoToAddress(addressDto));
+
+            return addressMapper.addressToAddressDto(address);
         }
-        if (!id.equals(addressDto.getId())) {
-            throw new RuntimeException("The id in the path must be the same as the id in the body");
-        }
 
-        Address address = addressService.update(addressMapper.addressDtoToAddress(addressDto));
-
-        return addressMapper.addressToAddressDto(address);
-    }
-
- */
+     */
     //Update address by id
     @Operation(summary = "Update address by id", description = "Update address by id")
     @ApiResponse(responseCode = "200", description = "Address updated")
@@ -101,3 +101,4 @@ public class AddressController {
     }
 
 }
+
