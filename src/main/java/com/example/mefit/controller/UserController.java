@@ -31,7 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://mefit-f-git-master-mosh98.vercel.app"})
 public class UserController {
 
 

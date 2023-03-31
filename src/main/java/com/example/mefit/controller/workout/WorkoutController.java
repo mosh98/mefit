@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/workouts")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://mefit-f-git-master-mosh98.vercel.app"})
 public class WorkoutController {
 
     //instiantiation of workoutService

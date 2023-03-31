@@ -22,7 +22,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/goal")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://mefit-f-git-master-mosh98.vercel.app"})
 public class GoalController {
 
     private final UserService userService;
